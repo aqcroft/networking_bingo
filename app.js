@@ -51,13 +51,6 @@ for (let n = 0; n < 5; n++) {
 }
 WIN_LINES.push([0, 6, 12, 18, 24], [4, 8, 12, 16, 20]);
 
-// A new line is celebrated only once during the current game. Existing
-// completed lines are considered already celebrated when a player returns.
-const celebratedLines = new Set(stats().completed.map(line => line.join(",")));
-let firstBingoCelebrated = stats().lineCount > 0;
-let fullHouseCelebrated = stats().fullHouse;
-let lineToastTimeout = null;
-
 function showLineToast(message) {
   if (lineToastTimeout !== null) clearTimeout(lineToastTimeout);
   LINE_TOAST.textContent = message;
@@ -86,6 +79,13 @@ function readSaved() {
 }
 
 const selected = new Set([...readSaved(), CENTRE]);
+
+// A new line is celebrated only once during the current game. Existing
+// completed lines are considered already celebrated when a player returns.
+const celebratedLines = new Set(stats().completed.map(line => line.join(",")));
+let firstBingoCelebrated = stats().lineCount > 0;
+let fullHouseCelebrated = stats().fullHouse;
+let lineToastTimeout = null;
 
 function store() {
   try {
