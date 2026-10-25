@@ -1,9 +1,9 @@
 window.NETWORKING_BINGO_RELEASE = Object.freeze({
-  version: "0.3.0",
+  version: "0.3.1",
   date: "2026-10-25",
   changes: [
-    "Added one-tap WhatsApp invitation with score and clickable game link",
-    "Added a QR code and visible game URL to saved and shared card images, without third-party services",
-    "Added WhatsApp sharing to the celebration pop-up and a share-message link alongside the card image"
+    "Reworded the 24 networking scenarios so they make sense without explanations",
+    "Gave mobile Bingo squares more room and slightly larger, clearer lettering",
+    "Improved shared card image text fitting so longer labels are shown in full"
   ]
 });
