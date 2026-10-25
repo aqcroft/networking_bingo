@@ -298,13 +298,13 @@ function drawQrCode(ctx, x, y, size) {
 function makeImage() {
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
-  canvas.height = 1540;
+  canvas.height = 1580;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Image creation is unavailable");
   const s = stats();
 
   ctx.fillStyle = "#f6f3ef";
-  ctx.fillRect(0, 0, 1080, 1480);
+  ctx.fillRect(0, 0, 1080, 1580);
   ctx.fillStyle = "#241a40";
   ctx.fillRect(0, 0, 1080, 221);
   ctx.fillStyle = "#ffd77d";
@@ -381,6 +381,11 @@ function makeImage() {
     ctx.font = "700 17px Arial, sans-serif";
     ctx.fillText("SCAN TO PLAY", 919, 1503);
   }
+  // Subtle attribution on the card, without turning the game into an advert.
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#635f75";
+  ctx.font = "700 20px Arial, sans-serif";
+  ctx.fillText("Adrian Croft - Host, Market Harborough Business Buzz", 540, 1553);
   return canvas;
 }
 
