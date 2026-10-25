@@ -6,27 +6,27 @@ const SQUARES = [
   { emoji: "📅", label: "Turned up on the wrong day", full: "Went to a networking event on the wrong date" },
   { emoji: "🎯", label: "Got a sales pitch before hello", full: "Someone immediately tried selling you their services instead of getting to know you - a classic pitch-slap!" },
   { emoji: "👔", label: "Arrived seriously overdressed", full: "Arrived at a networking event dressed much more formally than everyone else" },
-  { emoji: "🎤", label: "Froze during my 60-second pitch", full: "Completely lost your train of thought during a 60-second introduction" },
-  { emoji: "🤝", label: "Referred someone, expecting nothing back", full: "Recommended someone because they were a good fit, without expecting a referral in return" },
+  { emoji: "🎤", label: "Froze mid-60-second pitch", full: "Completely lost your train of thought during a 60-second introduction" },
+  { emoji: "🤝", label: "Gave a referral, no strings", full: "Recommended someone because they were a good fit, without expecting a referral in return" },
   { emoji: "⏰", label: "Arrived far too early", full: "Turned up ridiculously early for a networking event" },
-  { emoji: "🔦", label: "Forgot I was doing the spotlight", full: "Forgot you were supposed to be the featured speaker or spotlight guest" },
+  { emoji: "🔦", label: "Forgot I was the spotlight", full: "Forgot you were supposed to be the featured speaker or spotlight guest" },
   { emoji: "🫣", label: "Called someone the wrong name", full: "Confidently addressed someone by the wrong name" },
   { emoji: "🚽", label: "Escaped a chat via the loo", full: "Used a trip to the toilet as an excuse to escape a conversation" },
-  { emoji: "🎁", label: "Received an unexpected referral", full: "Received a lovely referral you weren't expecting" },
+  { emoji: "🎁", label: "Got a surprise referral", full: "Received a lovely referral you weren't expecting" },
   { emoji: "📍", label: "Went to the wrong venue", full: "Arrived at a different venue from the actual networking event" },
-  { emoji: "👀", label: "They scanned for someone else mid-chat", full: "Someone looked over your shoulder for someone more interesting whilst you were speaking" },
+  { emoji: "👀", label: "Looked past me for someone else", full: "Someone looked over your shoulder for someone more interesting whilst you were speaking" },
   { emoji: "☕", label: "FREE SPACE", full: "The free middle square - no networking mishap required!" },
-  { emoji: "📝", label: "Turned up completely unprepared", full: "Attended a networking event without preparing what to say or bring" },
-  { emoji: "💬", label: "One-to-one lasted over two hours", full: "Had a one-to-one that carried on for more than two hours" },
-  { emoji: "👟", label: "Arrived embarrassingly underdressed", full: "Turned up much more casually dressed than everyone else" },
+  { emoji: "📝", label: "Turned up totally unprepared", full: "Attended a networking event without preparing what to say or bring" },
+  { emoji: "💬", label: "One-to-one ran for 2+ hours", full: "Had a one-to-one that carried on for more than two hours" },
+  { emoji: "👟", label: "Arrived clearly underdressed", full: "Turned up much more casually dressed than everyone else" },
   { emoji: "🏃", label: "Walked in embarrassingly late", full: "Arrived so late that everyone noticed you walking in" },
-  { emoji: "🔄", label: "Referred someone... still waiting for one back", full: "Gave someone a referral and secretly hoped they'd reciprocate, but they never did" },
-  { emoji: "😬", label: "Knew their face, forgot their name", full: "Recognised someone but could not remember their name" },
-  { emoji: "💜", label: "Made a genuine friend through networking", full: "Made a friend through networking who is more than just a business contact" },
+  { emoji: "🔄", label: "Gave referral, got none back", full: "Gave someone a referral and secretly hoped they'd reciprocate, but they never did" },
+  { emoji: "😬", label: "Recognised face, forgot name", full: "Recognised someone but could not remember their name" },
+  { emoji: "💜", label: "Made a real networking friend", full: "Made a friend through networking who is more than just a business contact" },
   { emoji: "⌚", label: "Got the event start time wrong", full: "Turned up on the right day but got the starting time completely wrong" },
-  { emoji: "🗣️", label: "Couldn't escape a sales monologue", full: "Got trapped listening to someone talk about their business without letting you speak" },
-  { emoji: "🙋", label: "Introduced myself to someone twice", full: "Introduced yourself to somebody you'd already met or spoken to at an event" },
-  { emoji: "🌱", label: "Won business months after first meeting", full: "A networking contact became a customer or client months after you first met" },
+  { emoji: "🗣️", label: "Trapped in a sales monologue", full: "Got trapped listening to someone talk about their business without letting you speak" },
+  { emoji: "🙋", label: "Introduced myself twice", full: "Introduced yourself to somebody you'd already met or spoken to at an event" },
+  { emoji: "🌱", label: "Won business months later", full: "A networking contact became a customer or client months after you first met" },
   { emoji: "🥐", label: "Went partly for the food", full: "Chose to attend a networking event partly because the refreshments sounded good" }
 ];
 
@@ -38,6 +38,7 @@ const OUTCOME = document.getElementById("outcome");
 const LINES = document.getElementById("lines");
 const PROGRESS = document.getElementById("progress");
 const STATUS = document.getElementById("status");
+const LINE_TOAST = document.getElementById("line-toast");
 const CELEBRATION = document.getElementById("celebration");
 const CELEBRATION_TITLE = document.getElementById("celebration-title");
 const CELEBRATION_DETAIL = document.getElementById("celebration-detail");
@@ -49,6 +50,29 @@ for (let n = 0; n < 5; n++) {
   WIN_LINES.push([0, 1, 2, 3, 4].map(row => row * 5 + n));
 }
 WIN_LINES.push([0, 6, 12, 18, 24], [4, 8, 12, 16, 20]);
+
+// A new line is celebrated only once during the current game. Existing
+// completed lines are considered already celebrated when a player returns.
+const celebratedLines = new Set(stats().completed.map(line => line.join(",")));
+let firstBingoCelebrated = stats().lineCount > 0;
+let fullHouseCelebrated = stats().fullHouse;
+let lineToastTimeout = null;
+
+function showLineToast(message) {
+  if (lineToastTimeout !== null) clearTimeout(lineToastTimeout);
+  LINE_TOAST.textContent = message;
+  LINE_TOAST.hidden = false;
+  lineToastTimeout = setTimeout(() => {
+    LINE_TOAST.hidden = true;
+    lineToastTimeout = null;
+  }, 2600);
+}
+
+function hideLineToast() {
+  if (lineToastTimeout !== null) clearTimeout(lineToastTimeout);
+  lineToastTimeout = null;
+  LINE_TOAST.hidden = true;
+}
 
 function readSaved() {
   try {
@@ -104,29 +128,26 @@ function describeLine(line) {
 
 function showCelebration(before, after, newlyCompleted) {
   if (!newlyCompleted.length) return;
-  let title;
-  let message;
-  if (after.fullHouse && !before.fullHouse) {
-    title = "FULL HOUSE! 🏠";
-    message = "Every square ticked. You've certainly seen a thing or two at networking events! 😂";
-  } else if (after.lineCount === 1) {
-    title = "BINGO! 🎉";
-    message = "You've completed " + describeLine(newlyCompleted[0]) + "! What's your most memorable networking moment?";
-  } else if (before.lineCount < 2 && after.lineCount >= 2) {
-    title = "DOUBLE BINGO! 🎊";
-    message = newlyCompleted.length > 1
-      ? "You completed " + newlyCompleted.length + " lines in one go! Now that's showing off. 😂"
-      : "That's two completed lines! You've clearly done your fair share of networking.";
+  const winCount = newlyCompleted.length;
+  // Only interrupt play for first Bingo and the first Full House.
+  // Further lines get a brief toast instead of a repeated modal.
+  if (after.fullHouse && !fullHouseCelebrated) {
+    fullHouseCelebrated = true;
+    hideLineToast();
+    CELEBRATION_TITLE.textContent = "FULL HOUSE! 🏠";
+    CELEBRATION_DETAIL.textContent = "Every square ticked. You've certainly seen a thing or two at networking events! 😂";
+    CELEBRATION.showModal();
+  } else if (!firstBingoCelebrated) {
+    firstBingoCelebrated = true;
+    hideLineToast();
+    CELEBRATION_TITLE.textContent = "BINGO! 🎉";
+    CELEBRATION_DETAIL.textContent = "You've completed " + describeLine(newlyCompleted[0]) + "! What's your most memorable networking moment?";
+    CELEBRATION.showModal();
+  } else if (after.lineCount >= 2 && before.lineCount < 2) {
+    showLineToast("✌️ Double Bingo! Keep going...");
   } else {
-    title = after.lineCount + " LINES! 🎉";
-    message = newlyCompleted.length > 1
-      ? "Another " + newlyCompleted.length + " lines in one tap! You're on a roll."
-      : "Another " + describeLine(newlyCompleted[0]) + " completed! You're on a roll.";
+    showLineToast("🎉 " + (after.lineCount === 1 ? "Bingo again!" : after.lineCount + " completed lines!") + (winCount > 1 ? " Nice combo!" : ""));
   }
-
-  CELEBRATION_TITLE.textContent = title;
-  CELEBRATION_DETAIL.textContent = message;
-  if (!CELEBRATION.open) CELEBRATION.showModal();
 }
 
 function drawBoard() {
@@ -153,7 +174,10 @@ function drawBoard() {
         drawBoard();
         updateResults();
         const after = stats();
-        const newlyCompleted = after.completed.filter(line => !before.completed.includes(line));
+        const newlyCompleted = after.completed.filter(line =>
+          !before.completed.includes(line) && !celebratedLines.has(line.join(","))
+        );
+        for (const line of newlyCompleted) celebratedLines.add(line.join(","));
         lastSelectedSquareIndex = i;
         if (newlyCompleted.length) {
           showCelebration(before, after, newlyCompleted);
@@ -419,6 +443,10 @@ async function shareImage() {
 }
 
 function resetBoard() {
+  celebratedLines.clear();
+  firstBingoCelebrated = false;
+  fullHouseCelebrated = false;
+  hideLineToast();
   selected.clear();
   selected.add(CENTRE);
   store();
