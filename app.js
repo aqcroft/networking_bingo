@@ -3,35 +3,31 @@
 const APP_URL = "https://aqcroft.github.io/networking_bingo/";
 
 const SQUARES = [
-  { emoji: "📅", label: "Wrong date", full: "Turned up on completely the wrong date" },
-  { emoji: "🎯", label: "Pitch-slapped", full: "Been pitch-slapped before you could say hello" },
-  { emoji: "👔", label: "Overdressed", full: "Turned up hilariously overdressed" },
-  { emoji: "🎤", label: "60-second brain freeze", full: "Had a 60-second introduction brain freeze" },
-  { emoji: "🤝", label: "No-strings referral", full: "Referred someone without expecting anything in return" },
-
-  { emoji: "⏰", label: "Way too early", full: "Arrived ridiculously early" },
-  { emoji: "🔦", label: "Forgot the spotlight", full: "Forgot you were supposed to be doing the spotlight" },
-  { emoji: "🫣", label: "Wrong name", full: "Called someone by the wrong name" },
-  { emoji: "🚽", label: "Loo escape", full: "Gone to the loo to escape a conversation" },
-  { emoji: "🎁", label: "Surprise referral", full: "Received an unexpected referral" },
-
-  { emoji: "📍", label: "Wrong venue", full: "Arrived at the wrong venue" },
-  { emoji: "👀", label: "Looked past you", full: "Someone looked over your shoulder mid-conversation to find someone else to talk to" },
-  { emoji: "☕", label: "FREE SPACE", full: "Coffee at a networking event - this one's on us!" },
-  { emoji: "📝", label: "Ill-prepared", full: "Turned up without properly preparing" },
-  { emoji: "💬", label: "2-hour one-to-one", full: "Had a one-to-one that lasted over two hours" },
-
-  { emoji: "👟", label: "Underdressed", full: "Been conspicuously underdressed" },
-  { emoji: "🏃", label: "Embarrassingly late", full: "Walked into an event embarrassingly late" },
-  { emoji: "🔄", label: "Referral not returned", full: "Referred in good faith, secretly hoped for one back... and got nothing" },
-  { emoji: "😬", label: "Recognised face, no name", full: "Recognised someone's face but couldn't remember their name" },
-  { emoji: "💜", label: "Made a real friend", full: "Made a genuine friendship through networking" },
-
-  { emoji: "⌚", label: "Wrong start time", full: "Got the start time completely wrong" },
-  { emoji: "🗣️", label: "Trapped in a monologue", full: "Been trapped in a never-ending sales monologue" },
-  { emoji: "🙋", label: "Introduced twice", full: "Introduced yourself to the same person twice" },
-  { emoji: "🌱", label: "Business months later", full: "Won business months after first meeting somebody" },
-  { emoji: "🥐", label: "Went for the food", full: "Attended an event partly because you'd heard the food was good" }
+  { emoji: "📅", label: "Turned up on the wrong day", full: "Went to a networking event on the wrong date" },
+  { emoji: "🎯", label: "Got a sales pitch before hello", full: "Someone immediately tried selling you their services instead of getting to know you - a classic pitch-slap!" },
+  { emoji: "👔", label: "Arrived seriously overdressed", full: "Arrived at a networking event dressed much more formally than everyone else" },
+  { emoji: "🎤", label: "Froze during my 60-second pitch", full: "Completely lost your train of thought during a 60-second introduction" },
+  { emoji: "🤝", label: "Referred someone, expecting nothing back", full: "Recommended someone because they were a good fit, without expecting a referral in return" },
+  { emoji: "⏰", label: "Arrived far too early", full: "Turned up ridiculously early for a networking event" },
+  { emoji: "🔦", label: "Forgot I was doing the spotlight", full: "Forgot you were supposed to be the featured speaker or spotlight guest" },
+  { emoji: "🫣", label: "Called someone the wrong name", full: "Confidently addressed someone by the wrong name" },
+  { emoji: "🚽", label: "Escaped a chat via the loo", full: "Used a trip to the toilet as an excuse to escape a conversation" },
+  { emoji: "🎁", label: "Received an unexpected referral", full: "Received a lovely referral you weren't expecting" },
+  { emoji: "📍", label: "Went to the wrong venue", full: "Arrived at a different venue from the actual networking event" },
+  { emoji: "👀", label: "They scanned for someone else mid-chat", full: "Someone looked over your shoulder for someone more interesting whilst you were speaking" },
+  { emoji: "☕", label: "FREE SPACE", full: "The free middle square - no networking mishap required!" },
+  { emoji: "📝", label: "Turned up completely unprepared", full: "Attended a networking event without preparing what to say or bring" },
+  { emoji: "💬", label: "One-to-one lasted over two hours", full: "Had a one-to-one that carried on for more than two hours" },
+  { emoji: "👟", label: "Arrived embarrassingly underdressed", full: "Turned up much more casually dressed than everyone else" },
+  { emoji: "🏃", label: "Walked in embarrassingly late", full: "Arrived so late that everyone noticed you walking in" },
+  { emoji: "🔄", label: "Referred someone... still waiting for one back", full: "Gave someone a referral and secretly hoped they'd reciprocate, but they never did" },
+  { emoji: "😬", label: "Knew their face, forgot their name", full: "Recognised someone but could not remember their name" },
+  { emoji: "💜", label: "Made a genuine friend through networking", full: "Made a friend through networking who is more than just a business contact" },
+  { emoji: "⌚", label: "Got the event start time wrong", full: "Turned up on the right day but got the starting time completely wrong" },
+  { emoji: "🗣️", label: "Couldn't escape a sales monologue", full: "Got trapped listening to someone talk about their business without letting you speak" },
+  { emoji: "🙋", label: "Introduced myself to someone twice", full: "Introduced yourself to somebody you'd already met or spoken to at an event" },
+  { emoji: "🌱", label: "Won business months after first meeting", full: "A networking contact became a customer or client months after you first met" },
+  { emoji: "🥐", label: "Went partly for the food", full: "Chose to attend a networking event partly because the refreshments sounded good" }
 ];
 
 const CENTRE = 12;
@@ -322,10 +318,19 @@ function makeImage() {
     ctx.fillStyle = "#27253a";
     ctx.font = "46px Arial, sans-serif";
     ctx.fillText(square.emoji, x + side / 2, y + 62);
-    ctx.font = "800 23px Arial, sans-serif";
-    const lines = wrapLines(ctx, square.label, side - 24).slice(0, 3);
-    const blockTop = y + 101 - (lines.length - 1) * 7;
-    lines.forEach((line, j) => ctx.fillText(line, x + side / 2, blockTop + j * 26));
+    // Fit the complete phrase on the shared image. Never silently chop off
+    // explanatory words, especially on the more unusual networking squares.
+    let fontSize = 22;
+    let lines = [];
+    do {
+      ctx.font = "800 " + fontSize + "px Arial, sans-serif";
+      lines = wrapLines(ctx, square.label, side - 20);
+      if (lines.length <= 4) break;
+      fontSize--;
+    } while (fontSize >= 17);
+    const lineHeight = fontSize + 3;
+    const blockTop = y + 95 + Math.max(0, 4 - lines.length) * 8;
+    lines.forEach((line, j) => ctx.fillText(line, x + side / 2, blockTop + j * lineHeight));
     if (selected.has(i)) {
       roundedRect(ctx, x + side - 43, y + 10, 32, 32, 16, i === CENTRE ? "#a77300" : "#15775a");
       ctx.fillStyle = "#ffffff";
