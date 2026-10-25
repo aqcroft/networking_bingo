@@ -85,6 +85,20 @@
     .smallprint { text-align: center; font-size: 12px; color: #706a7a; line-height: 1.6; padding: 2px 8px; }
     details summary { cursor: pointer; font-weight: 850; }
     footer { padding-bottom: 35px; }
+    .celebration { border: 0; border-radius: 24px; padding: 0; width: min(92vw, 440px); max-height: calc(100dvh - 30px); overflow: auto; background: #fff; color: var(--ink); box-shadow: 0 25px 80px #0e09257a; }
+    .celebration::backdrop { background: #100b2bc9; backdrop-filter: blur(3px); }
+    .celebration-content { padding: 30px 23px 25px; text-align: center; }
+    .celebration-sparks { display: flex; justify-content: center; gap: 18px; font-size: 31px; margin-bottom: 8px; }
+    .celebration-sparks span { display: inline-block; animation: sparkle .8s ease-in-out both; }
+    .celebration-sparks span:nth-child(2) { animation-delay: .12s; }
+    .celebration-sparks span:nth-child(3) { animation-delay: .23s; }
+    .celebration-icon { display: grid; place-items: center; width: 94px; height: 94px; margin: 0 auto 14px; background: linear-gradient(135deg,#ffe4a0,#f9add0); border: 4px solid #fff; box-shadow: 0 8px 25px #5b329d29; border-radius: 50%; font-size: 48px; animation: celebrate-pop .48s cubic-bezier(.17,1.5,.5,1) both; }
+    .celebration-title { font-size: clamp(27px,7vw,36px); margin: 0; line-height: 1.16; color: #4e278e; font-weight: 950; }
+    .celebration-detail { color: #56516a; line-height: 1.5; font-size: 16px; margin: 14px auto 24px; max-width: 350px; }
+    .celebration-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .celebration-actions .action { min-height: 49px; }
+    @keyframes celebrate-pop { from { opacity: 0; transform: scale(.45) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+    @keyframes sparkle { 0% { opacity: 0; transform: translateY(18px) rotate(-25deg); } 70% { opacity: 1; transform: translateY(-7px) rotate(8deg); } 100% { opacity: 1; transform: translateY(0); } }
     @media (max-width:410px) {
       .wrap { width: min(100% - 18px, 790px); }
       .card { border-radius: 17px; padding: 9px; }
@@ -97,7 +111,7 @@
       .rules { gap: 6px; }
       .rule { padding: 11px 7px; }
     }
-    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; } }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; animation: none!important; } }
   </style>
   <script src="./version.js" defer></script>
   <script src="./app.js" defer></script>
@@ -107,7 +121,7 @@
     <div class="wrap">
       <div class="hero-top">
         <div class="mark">THE NETWORKER'S SURVIVAL GAME</div>
-        <span class="release" id="version">v0.1.0</span>
+        <span class="release" id="version">Version</span>
       </div>
       <div class="eyebrow">THE GOOD. THE BAD. THE CRINGEWORTHY.</div>
       <h1>Networking<br>BINGO! <span aria-hidden="true">😂</span></h1>
@@ -165,5 +179,17 @@
       <div class="smallprint">Made for laughs, conversations and connections. If you've got a square we missed, tell us on LinkedIn!</div>
     </div>
   </main>
+  <dialog id="celebration" class="celebration" aria-labelledby="celebration-title" aria-describedby="celebration-detail">
+    <div class="celebration-content">
+      <div class="celebration-sparks" aria-hidden="true"><span>🎊</span><span>✨</span><span>🎉</span></div>
+      <div class="celebration-icon" aria-hidden="true">🏆</div>
+      <h2 class="celebration-title" id="celebration-title">BINGO! 🎉</h2>
+      <p class="celebration-detail" id="celebration-detail">You've completed a line!</p>
+      <div class="celebration-actions">
+        <button type="button" class="action secondary" id="celebration-continue" autofocus>Keep playing</button>
+        <button type="button" class="action" id="celebration-share">📲 Share card</button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
