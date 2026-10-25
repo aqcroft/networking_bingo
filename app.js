@@ -14,7 +14,7 @@ const SQUARES = [
   { emoji: "🎁", label: "Surprise referral", full: "Received an unexpected referral" },
 
   { emoji: "📍", label: "Wrong venue", full: "Arrived at the wrong venue" },
-  { emoji: "👀", label: "Shoulder-scanned", full: "Had someone look over your shoulder for somebody more interesting" },
+  { emoji: "👀", label: "Looked past you", full: "Someone looked over your shoulder mid-conversation to find someone else to talk to" },
   { emoji: "☕", label: "FREE SPACE", full: "Coffee at a networking event - this one's on us!" },
   { emoji: "📝", label: "Ill-prepared", full: "Turned up without properly preparing" },
   { emoji: "💬", label: "2-hour one-to-one", full: "Had a one-to-one that lasted over two hours" },
@@ -40,6 +40,10 @@ const OUTCOME = document.getElementById("outcome");
 const LINES = document.getElementById("lines");
 const PROGRESS = document.getElementById("progress");
 const STATUS = document.getElementById("status");
+const CELEBRATION = document.getElementById("celebration");
+const CELEBRATION_TITLE = document.getElementById("celebration-title");
+const CELEBRATION_DETAIL = document.getElementById("celebration-detail");
+let lastSelectedSquareIndex = null;
 
 const WIN_LINES = [];
 for (let n = 0; n < 5; n++) {
@@ -94,6 +98,39 @@ function announce(message) {
   STATUS.textContent = message;
 }
 
+function describeLine(line) {
+  if (line[0] === 0 && line[4] === 24 || line[0] === 4 && line[4] === 20) return "a diagonal";
+  if (line[1] - line[0] === 1) return "a row";
+  return "a column";
+}
+
+function showCelebration(before, after, newlyCompleted) {
+  if (!newlyCompleted.length) return;
+  let title;
+  let message;
+  if (after.fullHouse && !before.fullHouse) {
+    title = "FULL HOUSE! 🏠";
+    message = "Every square ticked. You've certainly seen a thing or two at networking events! 😂";
+  } else if (after.lineCount === 1) {
+    title = "BINGO! 🎉";
+    message = "You've completed " + describeLine(newlyCompleted[0]) + "! What's your most memorable networking moment?";
+  } else if (before.lineCount < 2 && after.lineCount >= 2) {
+    title = "DOUBLE BINGO! 🎊";
+    message = newlyCompleted.length > 1
+      ? "You completed " + newlyCompleted.length + " lines in one go! Now that's showing off. 😂"
+      : "That's two completed lines! You've clearly done your fair share of networking.";
+  } else {
+    title = after.lineCount + " LINES! 🎉";
+    message = newlyCompleted.length > 1
+      ? "Another " + newlyCompleted.length + " lines in one tap! You're on a roll."
+      : "Another " + describeLine(newlyCompleted[0]) + " completed! You're on a roll.";
+  }
+
+  CELEBRATION_TITLE.textContent = title;
+  CELEBRATION_DETAIL.textContent = message;
+  if (!CELEBRATION.open) CELEBRATION.showModal();
+}
+
 function drawBoard() {
   BOARD.replaceChildren();
   SQUARES.forEach((square, i) => {
@@ -111,15 +148,22 @@ function drawBoard() {
       button.title = "Free centre square";
     } else {
       button.addEventListener("click", () => {
-        const before = stats().lineCount;
+        const before = stats();
         if (selected.has(i)) selected.delete(i);
         else selected.add(i);
         store();
         drawBoard();
         updateResults();
-        if (stats().lineCount > before) announce("BINGO! You've completed a line. 🎉");
-        else announce("");
-        BOARD.children[i].focus({ preventScroll: true });
+        const after = stats();
+        const newlyCompleted = after.completed.filter(line => !before.completed.includes(line));
+        lastSelectedSquareIndex = i;
+        if (newlyCompleted.length) {
+          showCelebration(before, after, newlyCompleted);
+          announce("BINGO! You've completed " + newlyCompleted.length + " new " + (newlyCompleted.length === 1 ? "line" : "lines") + ". 🎉");
+        } else {
+          announce("");
+          BOARD.children[i].focus({ preventScroll: true });
+        }
       });
     }
     BOARD.appendChild(button);
@@ -340,6 +384,17 @@ function resetBoard() {
   updateResults();
   announce("All clear. Ready for another round!");
 }
+
+CELEBRATION.addEventListener("close", () => {
+  if (lastSelectedSquareIndex !== null && BOARD.children[lastSelectedSquareIndex]) {
+    BOARD.children[lastSelectedSquareIndex].focus({ preventScroll: true });
+  }
+});
+document.getElementById("celebration-continue").addEventListener("click", () => CELEBRATION.close());
+document.getElementById("celebration-share").addEventListener("click", () => {
+  CELEBRATION.close();
+  shareImage();
+});
 
 document.getElementById("copy").addEventListener("click", copyScore);
 document.getElementById("save").addEventListener("click", saveImage);
