@@ -2,6 +2,14 @@
 
 All notable changes to Networking Bingo are recorded here. The **current version** is defined only in [version.js](./version.js).
 
+## 0.2.0 - 25th October 2026
+
+- Added a colourful, accessible celebration pop-up whenever a newly completed row, column or diagonal is achieved.
+- Celebrations distinguish first Bingo, Double Bingo, additional lines and Full House.
+- Added Keep playing and Share card actions, keyboard Escape to close, and reduced-motion support.
+- Replaced the unclear "Shoulder-scanned" square with "Looked past you", with a clearer full description.
+- Removed the hard-coded version number fallback from the webpage, keeping version.js as the single source of truth.
+
 ## 0.1.0 - 25th October 2026
 
 - Created the first mobile-friendly, 5 × 5 Networking Bingo card.
