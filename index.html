@@ -48,10 +48,10 @@
     .letter-row, .bingo-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: clamp(3px,.7vw,6px); }
     .letter-row { margin-bottom: 6px; }
     .letter-row span { text-align: center; background: var(--purple); color: #fff; font-weight: 950; font-size: clamp(18px,4vw,26px); line-height: 1; padding: 7px 0; border-radius: 7px; }
-    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1.14; min-height: 64px; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 5px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
+    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1.14; min-height: 115px; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 5px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
     .square:active:not(:disabled) { transform: scale(.97); }
     .square .emoji { font-size: clamp(15px,3.8vw,28px); line-height: 1; }
-    .square .square-text { font-size: clamp(9px,1.9vw,13px); line-height: 1.13; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
+    .square .square-text { font-size: clamp(9.5px,2.1vw,13px); line-height: 1.16; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
     .square.is-marked { background: #cbeee4; border-color: #259879; }
     .square.is-marked::after { content: "✓"; position: absolute; top: 3px; right: 5px; border-radius: 50%; background: #15775a; color: #fff; width: 18px; height: 18px; line-height: 17px; font-size: 13px; font-weight: 900; text-align: center; }
     .square.free { background: #fff0ba; border: 1.5px dashed #ba850b; }
@@ -107,8 +107,8 @@
       .card { border-radius: 17px; padding: 9px; }
       .board-head { margin: 8px 4px 12px; }
       .tap-hint { font-size: 10px; padding: 7px; }
-      .square { min-height: 59px; border-radius: 6px; padding: 3px 1px; gap: 3px; }
-      .square .square-text { font-size: clamp(8.2px,2.32vw,10px); }
+      .square { min-height: 116px; border-radius: 7px; padding: 5px 2px; gap: 4px; }
+      .square .square-text { font-size: clamp(9.3px,2.5vw,10.8px); }
       .square .emoji { font-size: 17px; }
       .square.is-marked::after { width: 15px; height: 15px; line-height: 14px; font-size: 10px; right: 2px; top: 2px; }
       .rules { gap: 6px; }
