@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#17162d">
+  <meta name="description" content="Networking Bingo: tick off the cringe, comedy and connections. Can you complete a line?">
+  <meta property="og:title" content="Networking Bingo - How many have you survived?">
+  <meta property="og:description" content="Pitch-slapped? 60-second brain freeze? Escape to the loo? Play Networking Bingo and share your card.">
+  <title>Networking Bingo | How many have you survived?</title>
+  <style>
+    :root {
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color-scheme: light;
+      color: #27253a;
+      background: #f6f3ef;
+      font-synthesis: none;
+      --ink: #26243c;
+      --muted: #635f75;
+      --navy: #17162d;
+      --purple: #5b329d;
+      --purple-soft: #efe6ff;
+      --gold: #ffd77d;
+      --teal: #188a85;
+      --pink: #fe6e9f;
+      --line: #e1dce8;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; }
+    button { font: inherit; cursor: pointer; }
+    button:focus-visible, summary:focus-visible { outline: 3px solid #ffaf35; outline-offset: 3px; }
+    .wrap { width: min(100% - 28px, 790px); margin: auto; }
+    .hero { background: radial-gradient(circle at 88% 6%, #654595 0, transparent 42%), linear-gradient(140deg,#17162d 20%,#30214f 100%); color: #fff; padding: 26px 0 54px; }
+    .hero-top { display: flex; justify-content: space-between; gap: 15px; align-items: center; }
+    .mark { font-size: 13px; font-weight: 800; letter-spacing: .11em; color: #ffd77d; }
+    .release { color: #d9d3e6; font-size: 12px; white-space: nowrap; }
+    .eyebrow { display: inline-block; margin: 28px 0 8px; font-weight: 800; font-size: 12px; letter-spacing: .13em; color: #ffd77d; }
+    h1 { font-size: clamp(36px,7.8vw,60px); line-height: 1.02; letter-spacing: -.04em; margin: 0; }
+    .hero p { max-width: 560px; font-size: clamp(15px,2.7vw,18px); color: #e6dff4; line-height: 1.55; margin: 14px 0 0; }
+    .intro-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .intro-badges span { padding: 7px 11px; border: 1px solid #8f80ac; border-radius: 100px; font-size: 12px; font-weight: 750; color: #fff; }
+    main { margin-top: -29px; padding-bottom: 45px; }
+    .card { border-radius: 22px; background: #fff; padding: clamp(11px,2vw,22px); box-shadow: 0 10px 40px #1e173a1c; }
+    .board-head { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 5px 4px 12px; }
+    .board-head h2 { margin: 0; font-size: clamp(21px,3.8vw,30px); letter-spacing: -.025em; }
+    .board-head p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .tap-hint { background: #f3ebff; color: #563090; border-radius: 100px; padding: 8px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .letter-row, .bingo-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: clamp(3px,.7vw,6px); }
+    .letter-row { margin-bottom: 6px; }
+    .letter-row span { text-align: center; background: var(--purple); color: #fff; font-weight: 950; font-size: clamp(18px,4vw,26px); line-height: 1; padding: 7px 0; border-radius: 7px; }
+    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1.14; min-height: 64px; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 5px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
+    .square:active:not(:disabled) { transform: scale(.97); }
+    .square .emoji { font-size: clamp(15px,3.8vw,28px); line-height: 1; }
+    .square .square-text { font-size: clamp(9px,1.9vw,13px); line-height: 1.13; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
+    .square.is-marked { background: #cbeee4; border-color: #259879; }
+    .square.is-marked::after { content: "✓"; position: absolute; top: 3px; right: 5px; border-radius: 50%; background: #15775a; color: #fff; width: 18px; height: 18px; line-height: 17px; font-size: 13px; font-weight: 900; text-align: center; }
+    .square.free { background: #fff0ba; border: 1.5px dashed #ba850b; }
+    .square.free::after { content: "★"; background: #a77300; }
+    .square.free .square-text { font-size: clamp(10px,2.1vw,14px); }
+    .results { margin-top: 17px; border-radius: 16px; background: #f4f0fa; padding: 15px 16px; }
+    .results-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .mini-label { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; font-weight: 850; }
+    .score { display: flex; align-items: baseline; gap: 5px; margin-top: 3px; }
+    .score strong { font-size: 34px; letter-spacing: -.05em; }
+    .score small { font-size: 13px; font-weight: 650; color: var(--muted); }
+    .outcome { text-align: right; }
+    .outcome strong { display: block; font-size: clamp(15px,3.2vw,20px); color: #563090; }
+    .outcome span { color: var(--muted); font-size: 12px; }
+    .progress { height: 8px; background: #e3dced; border-radius: 20px; overflow: hidden; margin-top: 11px; }
+    .progress div { width: 0; height: 100%; border-radius: 20px; background: linear-gradient(90deg,#6842c0,#1a9e83); transition: width .2s; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
+    .action { border: 0; border-radius: 12px; padding: 13px 8px; background: var(--purple); color: #fff; font-weight: 850; font-size: 14px; }
+    .action.secondary { color: var(--purple); border: 1px solid #cfc2e5; background: #fff; }
+    .action.full { grid-column: 1/-1; background: var(--navy); }
+    .action:disabled { opacity: .58; cursor: wait; }
+    .status { color: #38584d; font-size: 13px; font-weight: 650; min-height: 20px; margin: 10px 4px 0; }
+    .below { margin: 19px auto 0; display: grid; gap: 16px; }
+    .panel { border: 1px solid var(--line); border-radius: 17px; padding: 19px; background: #fff; }
+    .panel h3 { margin: 0 0 10px; letter-spacing: -.02em; }
+    .panel p { line-height: 1.5; color: #5e596c; margin: 8px 0; }
+    .rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+    .rule { background: #f8f5fb; padding: 12px 9px; border-radius: 12px; }
+    .rule strong { display: block; font-size: 12px; color: #48367e; }
+    .rule span { font-size: 12px; color: #6d6678; display: block; margin-top: 5px; }
+    .smallprint { text-align: center; font-size: 12px; color: #706a7a; line-height: 1.6; padding: 2px 8px; }
+    details summary { cursor: pointer; font-weight: 850; }
+    footer { padding-bottom: 35px; }
+    @media (max-width:410px) {
+      .wrap { width: min(100% - 18px, 790px); }
+      .card { border-radius: 17px; padding: 9px; }
+      .board-head { margin: 8px 4px 12px; }
+      .tap-hint { font-size: 10px; padding: 7px; }
+      .square { min-height: 59px; border-radius: 6px; padding: 3px 1px; gap: 3px; }
+      .square .square-text { font-size: clamp(8.2px,2.32vw,10px); }
+      .square .emoji { font-size: 17px; }
+      .square.is-marked::after { width: 15px; height: 15px; line-height: 14px; font-size: 10px; right: 2px; top: 2px; }
+      .rules { gap: 6px; }
+      .rule { padding: 11px 7px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; } }
+  </style>
+  <script src="./version.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="mark">THE NETWORKER'S SURVIVAL GAME</div>
+        <span class="release" id="version">v0.1.0</span>
+      </div>
+      <div class="eyebrow">THE GOOD. THE BAD. THE CRINGEWORTHY.</div>
+      <h1>Networking<br>BINGO! <span aria-hidden="true">😂</span></h1>
+      <p>Wrong venue? Pitch-slapped? Escaped to the loo? Tick the networking moments you've actually experienced. No judgement. Well, almost.</p>
+      <div class="intro-badges"><span>25 squares</span><span>1 free space</span><span>Plenty of stories</span></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="card" aria-label="Networking Bingo card">
+      <div class="board-head">
+        <div><h2>Your Bingo card</h2><p>Tap each square that applies to you.</p></div>
+        <span class="tap-hint">👇 TAP TO TICK</span>
+      </div>
+      <div class="letter-row" aria-hidden="true"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
+      <div class="bingo-grid" id="board" aria-label="25-square Bingo board"></div>
+      <div class="results" role="status" aria-live="polite" aria-atomic="true">
+        <div class="results-top">
+          <div>
+            <div class="mini-label">Your experiences</div>
+            <div class="score"><strong id="score">0</strong><small>of 24</small></div>
+          </div>
+          <div class="outcome">
+            <strong id="outcome">No Bingo... yet!</strong>
+            <span id="lines">0 completed lines</span>
+          </div>
+        </div>
+        <div class="progress" aria-hidden="true"><div id="progress"></div></div>
+      </div>
+      <div class="actions">
+        <button class="action" id="share" type="button">📲 Share my card</button>
+        <button class="action secondary" id="save" type="button">🖼️ Save image</button>
+        <button class="action secondary" id="copy" type="button">📋 Copy score</button>
+        <button class="action secondary" id="reset" type="button">↺ Start again</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+    <div class="below">
+      <section class="panel">
+        <h3>How to play</h3>
+        <div class="rules">
+          <div class="rule"><strong>🎉 BINGO!</strong><span>Any full row, column or diagonal.</span></div>
+          <div class="rule"><strong>✌️ DOUBLE!</strong><span>Complete any two lines.</span></div>
+          <div class="rule"><strong>🏠 FULL HOUSE!</strong><span>Tick all 24 experiences.</span></div>
+        </div>
+        <p><strong>Centre square is free!</strong> Can you get a line? Better still, what's your funniest networking story? Share the card or your score in the LinkedIn comments.</p>
+      </section>
+      <section class="panel">
+        <details>
+          <summary>About this little experiment</summary>
+          <p>Just a tongue-in-cheek celebration of the awkward and wonderful world of business networking. Not an assessment of your networking skills!</p>
+          <p>No sign-in, tracking or lead capture. Your ticks stay in this browser on this device until you clear them. Sharing is always optional.</p>
+          <p id="changes"></p>
+        </details>
+      </section>
+      <div class="smallprint">Made for laughs, conversations and connections. If you've got a square we missed, tell us on LinkedIn!</div>
+    </div>
+  </main>
+</body>
+</html>
