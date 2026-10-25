@@ -2,6 +2,13 @@
 
 All notable changes to Networking Bingo are recorded here. The **current version** is defined only in [version.js](./version.js).
 
+## 0.3.1 - 25th October 2026
+
+- Reworded the 24 experiences as clear, self-contained descriptions rather than shorthand labels, whilst keeping their humour.
+- Increased mobile card height and improved label readability for longer descriptions.
+- Improved PNG export to wrap full square labels and reduce the font size when needed instead of cutting the wording after three lines.
+- Preserved existing marked-square history, Bingo scoring, celebrations and sharing functionality.
+
 ## 0.3.0 - 25th October 2026
 
 - Added a dedicated WhatsApp share button with a prewritten game invitation, player's score and clickable link.
