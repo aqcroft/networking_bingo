@@ -2,6 +2,14 @@
 
 All notable changes to Networking Bingo are recorded here. The **current version** is defined only in [version.js](./version.js).
 
+## 0.3.0 - 25th October 2026
+
+- Added a dedicated WhatsApp share button with a prewritten game invitation, player's score and clickable link.
+- Added the same WhatsApp share option to each celebration modal.
+- Updated native image sharing to include an accompanying text invitation and URL where the receiving app supports it.
+- Added the URL and a scannable QR code to the PNG card export, generated entirely locally from a checked-in QR matrix.
+- No third-party QR requests, accounts or new tracking dependencies.
+
 ## 0.2.0 - 25th October 2026
 
 - Added a colourful, accessible celebration pop-up whenever a newly completed row, column or diagonal is achieved.
