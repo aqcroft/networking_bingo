@@ -2,6 +2,15 @@
 
 All notable changes to Networking Bingo are recorded here. The **current version** is defined only in [version.js](./version.js).
 
+## 0.4.0 - 25th October 2026
+
+- Restored true square Bingo tiles on all screen sizes and shortened the longest labels without making them cryptic.
+- Retained the traditional BINGO letters across the top and the free central square.
+- Reduced interruptions: a big modal for the first Bingo and first Full House, with compact, non-blocking toasts for subsequent newly completed lines.
+- Prevented repeat celebrations for lines already earned in the current game, even after unticking and reticking them.
+- Simplified the rules panel and removed the three introductory badges.
+- Added a discreet footer credit to Adrian Croft and Market Harborough Business Buzz.
+
 ## 0.3.1 - 25th October 2026
 
 - Reworded the 24 experiences as clear, self-contained descriptions rather than shorthand labels, whilst keeping their humour.
