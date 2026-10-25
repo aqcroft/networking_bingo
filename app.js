@@ -1,5 +1,7 @@
 "use strict";
 
+const APP_URL = "https://aqcroft.github.io/networking_bingo/";
+
 const SQUARES = [
   { emoji: "📅", label: "Wrong date", full: "Turned up on completely the wrong date" },
   { emoji: "🎯", label: "Pitch-slapped", full: "Been pitch-slapped before you could say hello" },
@@ -181,14 +183,18 @@ function updateResults() {
 function shareText() {
   const s = stats();
   return [
-    "Networking Bingo! 😂",
-    "I've experienced " + s.experiences + " of 24 networking moments and completed " + s.lineCount + " " + (s.lineCount === 1 ? "line" : "lines") + "!",
-    resultTitle(s),
-    "",
-    "My most memorable moment? That's another story... 😳",
-    "How many can YOU tick?",
-    location.href.split("#")[0]
+    "I played Networking Bingo! 😂",
+    "I ticked " + s.experiences + "/24 squares and completed " + s.lineCount + " " + (s.lineCount === 1 ? "line" : "lines") + "!",
+    "Fancy a go? Play it here:",
+    APP_URL
   ].join("\n");
+}
+
+function openWhatsAppShare() {
+  // A prefilled text link is reliable on WhatsApp; attaching an image to the
+  // same WhatsApp draft isn't supported by the wa.me deep link.
+  const url = "https://wa.me/?text=" + encodeURIComponent(shareText());
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 async function copyScore() {
@@ -244,10 +250,35 @@ function wrapLines(ctx, words, maxWidth) {
   return lines;
 }
 
+// Draw a pre-generated, scannable QR matrix directly onto the exported canvas.
+// No network calls, canvas tainting, or third-party QR API.
+function drawQrCode(ctx, x, y, size) {
+  const qr = window.NETWORKING_BINGO_QR;
+  if (!qr || qr.url !== APP_URL || !Array.isArray(qr.rows) || !qr.rows.length) return false;
+  const count = qr.rows.length;
+  if (qr.rows.some(row => row.length !== count || /[^01]/.test(row))) return false;
+  const quietZone = 4;
+  const step = size / (count + quietZone * 2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x, y, size, size);
+  ctx.fillStyle = "#131222";
+  for (let row = 0; row < count; row++) {
+    for (let col = 0; col < count; col++) {
+      if (qr.rows[row][col] !== "1") continue;
+      const x0 = Math.round(x + (col + quietZone) * step);
+      const x1 = Math.round(x + (col + quietZone + 1) * step);
+      const y0 = Math.round(y + (row + quietZone) * step);
+      const y1 = Math.round(y + (row + quietZone + 1) * step);
+      ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+    }
+  }
+  return true;
+}
+
 function makeImage() {
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
-  canvas.height = 1480;
+  canvas.height = 1540;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Image creation is unavailable");
   const s = stats();
@@ -303,7 +334,7 @@ function makeImage() {
     }
   });
 
-  roundedRect(ctx, 43, 1284, 994, 146, 18, "#ede4f8");
+  roundedRect(ctx, 43, 1284, 994, 231, 18, "#ede4f8");
   ctx.textAlign = "left";
   ctx.fillStyle = "#5b329d";
   ctx.font = "900 49px Arial, sans-serif";
@@ -311,10 +342,16 @@ function makeImage() {
   ctx.font = "700 28px Arial, sans-serif";
   ctx.fillStyle = "#312c4a";
   ctx.fillText(s.experiences + "/24 experiences  •  " + s.lineCount + " completed lines", 67, 1397);
-  ctx.textAlign = "right";
-  ctx.font = "22px Arial, sans-serif";
-  ctx.fillStyle = "#635f75";
-  ctx.fillText("Play along: aqcroft.github.io/networking_bingo", 1035, 1462);
+  ctx.font = "800 23px Arial, sans-serif";
+  ctx.fillStyle = "#4e4860";
+  ctx.fillText("Play it here:", 67, 1437);
+  ctx.font = "21px Arial, sans-serif";
+  ctx.fillText(APP_URL, 67, 1472);
+  if (drawQrCode(ctx, 829, 1305, 180)) {
+    ctx.textAlign = "center";
+    ctx.font = "700 17px Arial, sans-serif";
+    ctx.fillText("SCAN TO PLAY", 919, 1503);
+  }
   return canvas;
 }
 
@@ -359,13 +396,13 @@ async function shareImage() {
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
       await navigator.share({
         title: "Networking Bingo",
-        text: "How many networking moments have YOU survived? 😂",
+        text: shareText(),
         files: [file]
       });
-      announce("Thanks for playing! 🎉");
+      announce("Thanks for sharing! If the receiving app omitted the link, use Share on WhatsApp to send it separately.");
     } else {
       downloadImage(blob);
-      announce("Your browser can't share an image directly, so I've saved it for you to post manually.");
+      announce("Card image saved. Use Share on WhatsApp for a clickable game link.");
     }
   } catch (error) {
     if (error && error.name !== "AbortError") {
@@ -396,6 +433,12 @@ document.getElementById("celebration-share").addEventListener("click", () => {
   shareImage();
 });
 
+document.getElementById("celebration-whatsapp").addEventListener("click", () => {
+  CELEBRATION.close();
+  openWhatsAppShare();
+});
+
+document.getElementById("whatsapp").addEventListener("click", openWhatsAppShare);
 document.getElementById("copy").addEventListener("click", copyScore);
 document.getElementById("save").addEventListener("click", saveImage);
 document.getElementById("share").addEventListener("click", shareImage);
