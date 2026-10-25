@@ -37,8 +37,6 @@
     .eyebrow { display: inline-block; margin: 28px 0 8px; font-weight: 800; font-size: 12px; letter-spacing: .13em; color: #ffd77d; }
     h1 { font-size: clamp(36px,7.8vw,60px); line-height: 1.02; letter-spacing: -.04em; margin: 0; }
     .hero p { max-width: 560px; font-size: clamp(15px,2.7vw,18px); color: #e6dff4; line-height: 1.55; margin: 14px 0 0; }
-    .intro-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .intro-badges span { padding: 7px 11px; border: 1px solid #8f80ac; border-radius: 100px; font-size: 12px; font-weight: 750; color: #fff; }
     main { margin-top: -29px; padding-bottom: 45px; }
     .card { border-radius: 22px; background: #fff; padding: clamp(11px,2vw,22px); box-shadow: 0 10px 40px #1e173a1c; }
     .board-head { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 5px 4px 12px; }
@@ -48,10 +46,10 @@
     .letter-row, .bingo-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: clamp(3px,.7vw,6px); }
     .letter-row { margin-bottom: 6px; }
     .letter-row span { text-align: center; background: var(--purple); color: #fff; font-weight: 950; font-size: clamp(18px,4vw,26px); line-height: 1; padding: 7px 0; border-radius: 7px; }
-    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1.14; min-height: 115px; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 5px 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
+    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1; min-height: 0; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 3px 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
     .square:active:not(:disabled) { transform: scale(.97); }
-    .square .emoji { font-size: clamp(15px,3.8vw,28px); line-height: 1; }
-    .square .square-text { font-size: clamp(9.5px,2.1vw,13px); line-height: 1.16; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
+    .square .emoji { font-size: clamp(14px,3.3vw,23px); line-height: 1; }
+    .square .square-text { font-size: clamp(8.5px,1.8vw,12.5px); line-height: 1.08; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
     .square.is-marked { background: #cbeee4; border-color: #259879; }
     .square.is-marked::after { content: "✓"; position: absolute; top: 3px; right: 5px; border-radius: 50%; background: #15775a; color: #fff; width: 18px; height: 18px; line-height: 17px; font-size: 13px; font-weight: 900; text-align: center; }
     .square.free { background: #fff0ba; border: 1.5px dashed #ba850b; }
@@ -76,14 +74,12 @@
     .action.full { grid-column: 1/-1; background: var(--navy); }
     .action:disabled { opacity: .58; cursor: wait; }
     .status { color: #38584d; font-size: 13px; font-weight: 650; min-height: 20px; margin: 10px 4px 0; }
+    .line-toast { position: fixed; z-index: 50; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: min(90vw, 420px); padding: 12px 18px; background: #2b2051; color: #fff; box-shadow: 0 8px 35px #0003; border-radius: 999px; font-weight: 800; font-size: 14px; text-align: center; pointer-events: none; }
+    .line-toast[hidden] { display: none; }
     .below { margin: 19px auto 0; display: grid; gap: 16px; }
     .panel { border: 1px solid var(--line); border-radius: 17px; padding: 19px; background: #fff; }
     .panel h3 { margin: 0 0 10px; letter-spacing: -.02em; }
     .panel p { line-height: 1.5; color: #5e596c; margin: 8px 0; }
-    .rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
-    .rule { background: #f8f5fb; padding: 12px 9px; border-radius: 12px; }
-    .rule strong { display: block; font-size: 12px; color: #48367e; }
-    .rule span { font-size: 12px; color: #6d6678; display: block; margin-top: 5px; }
     .smallprint { text-align: center; font-size: 12px; color: #706a7a; line-height: 1.6; padding: 2px 8px; }
     details summary { cursor: pointer; font-weight: 850; }
     footer { padding-bottom: 35px; }
@@ -107,12 +103,10 @@
       .card { border-radius: 17px; padding: 9px; }
       .board-head { margin: 8px 4px 12px; }
       .tap-hint { font-size: 10px; padding: 7px; }
-      .square { min-height: 116px; border-radius: 7px; padding: 5px 2px; gap: 4px; }
-      .square .square-text { font-size: clamp(9.3px,2.5vw,10.8px); }
-      .square .emoji { font-size: 17px; }
+      .square { aspect-ratio: 1 / 1; min-height: 0; border-radius: 7px; padding: 2px 1px; gap: 2px; }
+      .square .square-text { font-size: clamp(8px,2.3vw,10px); }
+      .square .emoji { font-size: 14px; }
       .square.is-marked::after { width: 15px; height: 15px; line-height: 14px; font-size: 10px; right: 2px; top: 2px; }
-      .rules { gap: 6px; }
-      .rule { padding: 11px 7px; }
     }
     @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; animation: none!important; } }
   </style>
@@ -130,7 +124,6 @@
       <div class="eyebrow">THE GOOD. THE BAD. THE CRINGEWORTHY.</div>
       <h1>Networking<br>BINGO! <span aria-hidden="true">😂</span></h1>
       <p>Wrong venue? Pitch-slapped? Escaped to the loo? Tick the networking moments you've actually experienced. No judgement. Well, almost.</p>
-      <div class="intro-badges"><span>25 squares</span><span>1 free space</span><span>Plenty of stories</span></div>
     </div>
   </header>
   <main class="wrap">
@@ -166,12 +159,8 @@
     <div class="below">
       <section class="panel">
         <h3>How to play</h3>
-        <div class="rules">
-          <div class="rule"><strong>🎉 BINGO!</strong><span>Any full row, column or diagonal.</span></div>
-          <div class="rule"><strong>✌️ DOUBLE!</strong><span>Complete any two lines.</span></div>
-          <div class="rule"><strong>🏠 FULL HOUSE!</strong><span>Tick all 24 experiences.</span></div>
-        </div>
-        <p><strong>Centre square is free!</strong> Can you get a line? Better still, what's your funniest networking story? Share your card in the LinkedIn comments, or send a friend the game link on WhatsApp.</p>
+        <p>Tap the experiences you've had. A full row, column or diagonal = <strong>BINGO!</strong> Two lines = <strong>Double Bingo!</strong> All 24 experiences = <strong>Full House!</strong></p>
+        <p>The centre square is free. Share your card or tell us your funniest networking story!</p>
       </section>
       <section class="panel">
         <details>
@@ -184,6 +173,7 @@
       <div class="smallprint">Made for laughs, conversations and connections. If you've got a square we missed, tell us on LinkedIn!</div>
     </div>
   </main>
+  <div id="line-toast" class="line-toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
   <dialog id="celebration" class="celebration" aria-labelledby="celebration-title" aria-describedby="celebration-detail">
     <div class="celebration-content">
       <div class="celebration-sparks" aria-hidden="true"><span>🎊</span><span>✨</span><span>🎉</span></div>
