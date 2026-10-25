@@ -71,6 +71,8 @@
     .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
     .action { border: 0; border-radius: 12px; padding: 13px 8px; background: var(--purple); color: #fff; font-weight: 850; font-size: 14px; }
     .action.secondary { color: var(--purple); border: 1px solid #cfc2e5; background: #fff; }
+    .action.whatsapp { background: #12805d; color: #fff; }
+    .actions #reset { grid-column: 1 / -1; }
     .action.full { grid-column: 1/-1; background: var(--navy); }
     .action:disabled { opacity: .58; cursor: wait; }
     .status { color: #38584d; font-size: 13px; font-weight: 650; min-height: 20px; margin: 10px 4px 0; }
@@ -97,6 +99,7 @@
     .celebration-detail { color: #56516a; line-height: 1.5; font-size: 16px; margin: 14px auto 24px; max-width: 350px; }
     .celebration-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
     .celebration-actions .action { min-height: 49px; }
+    .celebration-actions #celebration-continue { grid-column: 1 / -1; }
     @keyframes celebrate-pop { from { opacity: 0; transform: scale(.45) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
     @keyframes sparkle { 0% { opacity: 0; transform: translateY(18px) rotate(-25deg); } 70% { opacity: 1; transform: translateY(-7px) rotate(8deg); } 100% { opacity: 1; transform: translateY(0); } }
     @media (max-width:410px) {
@@ -114,6 +117,7 @@
     @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; animation: none!important; } }
   </style>
   <script src="./version.js" defer></script>
+  <script src="./qr-code.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -152,6 +156,7 @@
       </div>
       <div class="actions">
         <button class="action" id="share" type="button">📲 Share my card</button>
+        <button class="action whatsapp" id="whatsapp" type="button">💬 WhatsApp</button>
         <button class="action secondary" id="save" type="button">🖼️ Save image</button>
         <button class="action secondary" id="copy" type="button">📋 Copy score</button>
         <button class="action secondary" id="reset" type="button">↺ Start again</button>
@@ -166,7 +171,7 @@
           <div class="rule"><strong>✌️ DOUBLE!</strong><span>Complete any two lines.</span></div>
           <div class="rule"><strong>🏠 FULL HOUSE!</strong><span>Tick all 24 experiences.</span></div>
         </div>
-        <p><strong>Centre square is free!</strong> Can you get a line? Better still, what's your funniest networking story? Share the card or your score in the LinkedIn comments.</p>
+        <p><strong>Centre square is free!</strong> Can you get a line? Better still, what's your funniest networking story? Share your card in the LinkedIn comments, or send a friend the game link on WhatsApp.</p>
       </section>
       <section class="panel">
         <details>
@@ -186,8 +191,9 @@
       <h2 class="celebration-title" id="celebration-title">BINGO! 🎉</h2>
       <p class="celebration-detail" id="celebration-detail">You've completed a line!</p>
       <div class="celebration-actions">
-        <button type="button" class="action secondary" id="celebration-continue" autofocus>Keep playing</button>
         <button type="button" class="action" id="celebration-share">📲 Share card</button>
+        <button type="button" class="action whatsapp" id="celebration-whatsapp">💬 WhatsApp</button>
+        <button type="button" class="action secondary" id="celebration-continue" autofocus>Keep playing</button>
       </div>
     </div>
   </dialog>
