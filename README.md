@@ -9,7 +9,10 @@ A mobile-friendly, tongue-in-cheek Bingo game about the embarrassing, surprising
 - A 5 × 5 board with 24 tickable networking experiences and a free centre space.
 - Detects rows, columns and diagonals automatically. Two complete lines = Double Bingo; all 24 experiences = Full House.
 - Saves your ticks locally in your browser. No account, tracking, forms or lead capture.
-- Creates a shareable PNG of the completed card, with a native phone share option when supported.
+- Creates a shareable PNG of the completed card, including a visible game URL and a scannable QR code.
+- Offers one-tap WhatsApp sharing with a prewritten invitation and clickable game link.
+- Native phone image sharing includes the invitation text where supported (some receiving apps ignore image captions).
+- The QR code is stored locally in `qr-code.js`; there are no remote QR services or extra tracking requests.
 - Offers a copyable text result for LinkedIn and an easy Reset button.
 - No external libraries, build system, or paid hosting required.
 
@@ -39,8 +42,11 @@ Open the published website on mobile and desktop:
 1. Tick and untick some squares; refresh and confirm they remain selected.
 2. Complete a horizontal row, vertical column, and diagonal. Check that lines are counted once each.
 3. Complete two lines to see Double Bingo; complete all 24 experiences for Full House.
-4. Try Share my card and Save image; confirm that the PNG contains your marked squares and score.
-5. Reset, refresh, and check that the centre free space remains selected and everything else is blank.
+4. Try Share my card and Save image; confirm that the PNG contains your marked squares, score, full URL and a scannable QR code.
+5. Scan the exported QR code with another phone and check it opens the correct game.
+6. Try WhatsApp and check the generated invitation contains a clickable link and your score.
+7. Confirm native image sharing preserves the link where supported; it can legitimately be stripped by receiving apps.
+8. Reset, refresh, and check that the centre free space remains selected and everything else is blank.
 
 ## Versioning and changes
 
@@ -48,4 +54,4 @@ Follow [AGENTS.md](./AGENTS.md) for every code change. Update version.js and [CH
 
 ## Status
 
-**Prototype (v0.1.0).** The wording of the squares and visual presentation can be refined following feedback. The project is not presented as an official Business Buzz product.
+**Prototype (v0.3.0).** The wording of the squares and visual presentation can be refined following feedback. The project is not presented as an official Business Buzz product.
