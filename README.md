@@ -31,7 +31,7 @@ On a phone, GitHub's website in your browser may be easier than the GitHub mobil
 
 ## How to edit the board
 
-Open [app.js](./app.js) and edit the SQUARES array at the top. There must be exactly 25 entries in a 5 × 5 grid, with the free space at index 12 (the thirteenth square). Short label text is used on the small card and the exported image; full is the accessible longer description.
+Open [app.js](./app.js) and edit the SQUARES array at the top. There must be exactly 25 entries in a 5 × 5 grid, with the free space at index 12 (the thirteenth square). Each label is a concise, self-explanatory phrase displayed both on the card and the exported image; full is the longer accessible description. When editing, prioritise clarity over cryptic shorthand, and check the words fit on narrow mobile screens and on the PNG.
 
 The board is intentionally fixed, not shuffled, so people playing from the same LinkedIn post see the same squares.
 
@@ -54,4 +54,4 @@ Follow [AGENTS.md](./AGENTS.md) for every code change. Update version.js and [CH
 
 ## Status
 
-**Prototype (v0.3.0).** The wording of the squares and visual presentation can be refined following feedback. The project is not presented as an official Business Buzz product.
+**Prototype (v0.3.1).** The wording of the squares and visual presentation can be refined following feedback. The project is not presented as an official Business Buzz product.
