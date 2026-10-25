@@ -9,7 +9,7 @@ All notable changes to Networking Bingo are recorded here. The **current version
 - Reduced interruptions: a big modal for the first Bingo and first Full House, with compact, non-blocking toasts for subsequent newly completed lines.
 - Prevented repeat celebrations for lines already earned in the current game, even after unticking and reticking them.
 - Simplified the rules panel and removed the three introductory badges.
-- Added a discreet footer credit to Adrian Croft and Market Harborough Business Buzz.
+- Added a discreet footer credit to Adrian Croft and Market Harborough Business Buzz, both on the webpage and the shareable PNG.
 
 ## 0.3.1 - 25th October 2026
 
