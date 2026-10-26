@@ -3,112 +3,108 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#17162d">
-  <meta name="description" content="Networking Bingo: tick off the cringe, comedy and connections. Can you complete a line?">
-  <meta property="og:title" content="Networking Bingo - How many have you survived?">
-  <meta property="og:description" content="Pitch-slapped? 60-second brain freeze? Escape to the loo? Play Networking Bingo and share your card.">
-  <title>Networking Bingo | How many have you survived?</title>
+  <meta name="theme-color" content="#211735">
+  <meta name="description" content="Networking Bingo: the good, the bad and the cringeworthy. Tick the networking moments you've experienced and discover your rank.">
+  <meta property="og:title" content="Networking Bingo - The Good. The Bad. The Cringeworthy.">
+  <meta property="og:description" content="From surprise referrals to embarrassing introductions. How many networking moments can you tick?">
+  <title>Networking Bingo | The Good. The Bad. The Cringeworthy.</title>
   <style>
     :root {
       font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color-scheme: light;
-      color: #27253a;
-      background: #f6f3ef;
-      font-synthesis: none;
-      --ink: #26243c;
-      --muted: #635f75;
-      --navy: #17162d;
-      --purple: #5b329d;
-      --purple-soft: #efe6ff;
-      --gold: #ffd77d;
-      --teal: #188a85;
-      --pink: #fe6e9f;
-      --line: #e1dce8;
+      background: #f6f3ef; color: #27253a; color-scheme: light;
+      --ink: #26243c; --muted: #635f75; --navy: #211735;
+      --purple: #633ca4; --gold: #ffd77d; --line: #e1dce8;
     }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; }
-    button { font: inherit; cursor: pointer; }
-    button:focus-visible, summary:focus-visible { outline: 3px solid #ffaf35; outline-offset: 3px; }
-    .wrap { width: min(100% - 28px, 790px); margin: auto; }
-    .hero { background: radial-gradient(circle at 88% 6%, #654595 0, transparent 42%), linear-gradient(140deg,#17162d 20%,#30214f 100%); color: #fff; padding: 26px 0 54px; }
-    .hero-top { display: flex; justify-content: space-between; gap: 15px; align-items: center; }
-    .mark { font-size: 13px; font-weight: 800; letter-spacing: .11em; color: #ffd77d; }
-    .release { color: #d9d3e6; font-size: 12px; white-space: nowrap; }
-    .eyebrow { display: inline-block; margin: 28px 0 8px; font-weight: 800; font-size: 12px; letter-spacing: .13em; color: #ffd77d; }
-    h1 { font-size: clamp(36px,7.8vw,60px); line-height: 1.02; letter-spacing: -.04em; margin: 0; }
-    .hero p { max-width: 560px; font-size: clamp(15px,2.7vw,18px); color: #e6dff4; line-height: 1.55; margin: 14px 0 0; }
-    main { margin-top: -29px; padding-bottom: 45px; }
-    .card { border-radius: 22px; background: #fff; padding: clamp(11px,2vw,22px); box-shadow: 0 10px 40px #1e173a1c; }
-    .board-head { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 5px 4px 12px; }
-    .board-head h2 { margin: 0; font-size: clamp(21px,3.8vw,30px); letter-spacing: -.025em; }
-    .board-head p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
-    .tap-hint { background: #f3ebff; color: #563090; border-radius: 100px; padding: 8px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
-    .letter-row, .bingo-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: clamp(3px,.7vw,6px); }
-    .letter-row { margin-bottom: 6px; }
-    .letter-row span { text-align: center; background: var(--purple); color: #fff; font-weight: 950; font-size: clamp(18px,4vw,26px); line-height: 1; padding: 7px 0; border-radius: 7px; }
-    .square { width: 100%; min-width: 0; aspect-ratio: 1 / 1; min-height: 0; border: 1.5px solid #dcd4e9; border-radius: 10px; background: #fbf9fd; padding: 3px 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--ink); position: relative; transition: background .14s ease, transform .14s ease; -webkit-tap-highlight-color: transparent; }
-    .square:active:not(:disabled) { transform: scale(.97); }
-    .square .emoji { font-size: clamp(14px,3.3vw,23px); line-height: 1; }
-    .square .square-text { font-size: clamp(8.5px,1.8vw,12.5px); line-height: 1.08; font-weight: 780; overflow-wrap: anywhere; text-align: center; }
-    .square.is-marked { background: #cbeee4; border-color: #259879; }
-    .square.is-marked::after { content: "✓"; position: absolute; top: 3px; right: 5px; border-radius: 50%; background: #15775a; color: #fff; width: 18px; height: 18px; line-height: 17px; font-size: 13px; font-weight: 900; text-align: center; }
-    .square.free { background: #fff0ba; border: 1.5px dashed #ba850b; }
-    .square.free::after { content: "★"; background: #a77300; }
-    .square.free .square-text { font-size: clamp(10px,2.1vw,14px); }
-    .results { margin-top: 17px; border-radius: 16px; background: #f4f0fa; padding: 15px 16px; }
-    .results-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .mini-label { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; font-weight: 850; }
-    .score { display: flex; align-items: baseline; gap: 5px; margin-top: 3px; }
-    .score strong { font-size: 34px; letter-spacing: -.05em; }
-    .score small { font-size: 13px; font-weight: 650; color: var(--muted); }
-    .outcome { text-align: right; }
-    .outcome strong { display: block; font-size: clamp(15px,3.2vw,20px); color: #563090; }
-    .outcome span { color: var(--muted); font-size: 12px; }
-    .progress { height: 8px; background: #e3dced; border-radius: 20px; overflow: hidden; margin-top: 11px; }
-    .progress div { width: 0; height: 100%; border-radius: 20px; background: linear-gradient(90deg,#6842c0,#1a9e83); transition: width .2s; }
-    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
-    .action { border: 0; border-radius: 12px; padding: 13px 8px; background: var(--purple); color: #fff; font-weight: 850; font-size: 14px; }
-    .action.secondary { color: var(--purple); border: 1px solid #cfc2e5; background: #fff; }
-    .action.whatsapp { background: #12805d; color: #fff; }
-    .actions #reset { grid-column: 1 / -1; }
-    .action.full { grid-column: 1/-1; background: var(--navy); }
-    .action:disabled { opacity: .58; cursor: wait; }
-    .status { color: #38584d; font-size: 13px; font-weight: 650; min-height: 20px; margin: 10px 4px 0; }
-    .line-toast { position: fixed; z-index: 50; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: min(90vw, 420px); padding: 12px 18px; background: #2b2051; color: #fff; box-shadow: 0 8px 35px #0003; border-radius: 999px; font-weight: 800; font-size: 14px; text-align: center; pointer-events: none; }
-    .line-toast[hidden] { display: none; }
-    .below { margin: 19px auto 0; display: grid; gap: 16px; }
-    .panel { border: 1px solid var(--line); border-radius: 17px; padding: 19px; background: #fff; }
-    .panel h3 { margin: 0 0 10px; letter-spacing: -.02em; }
-    .panel p { line-height: 1.5; color: #5e596c; margin: 8px 0; }
-    .smallprint { text-align: center; font-size: 12px; color: #706a7a; line-height: 1.6; padding: 2px 8px; }
-    details summary { cursor: pointer; font-weight: 850; }
-    footer { padding-bottom: 35px; }
-    .celebration { border: 0; border-radius: 24px; padding: 0; width: min(92vw, 440px); max-height: calc(100dvh - 30px); overflow: auto; background: #fff; color: var(--ink); box-shadow: 0 25px 80px #0e09257a; }
-    .celebration::backdrop { background: #100b2bc9; backdrop-filter: blur(3px); }
-    .celebration-content { padding: 30px 23px 25px; text-align: center; }
-    .celebration-sparks { display: flex; justify-content: center; gap: 18px; font-size: 31px; margin-bottom: 8px; }
-    .celebration-sparks span { display: inline-block; animation: sparkle .8s ease-in-out both; }
-    .celebration-sparks span:nth-child(2) { animation-delay: .12s; }
-    .celebration-sparks span:nth-child(3) { animation-delay: .23s; }
-    .celebration-icon { display: grid; place-items: center; width: 94px; height: 94px; margin: 0 auto 14px; background: linear-gradient(135deg,#ffe4a0,#f9add0); border: 4px solid #fff; box-shadow: 0 8px 25px #5b329d29; border-radius: 50%; font-size: 48px; animation: celebrate-pop .48s cubic-bezier(.17,1.5,.5,1) both; }
-    .celebration-title { font-size: clamp(27px,7vw,36px); margin: 0; line-height: 1.16; color: #4e278e; font-weight: 950; }
-    .celebration-detail { color: #56516a; line-height: 1.5; font-size: 16px; margin: 14px auto 24px; max-width: 350px; }
-    .celebration-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-    .celebration-actions .action { min-height: 49px; }
-    .celebration-actions #celebration-continue { grid-column: 1 / -1; }
-    @keyframes celebrate-pop { from { opacity: 0; transform: scale(.45) rotate(-18deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
-    @keyframes sparkle { 0% { opacity: 0; transform: translateY(18px) rotate(-25deg); } 70% { opacity: 1; transform: translateY(-7px) rotate(8deg); } 100% { opacity: 1; transform: translateY(0); } }
-    @media (max-width:410px) {
-      .wrap { width: min(100% - 18px, 790px); }
-      .card { border-radius: 17px; padding: 9px; }
-      .board-head { margin: 8px 4px 12px; }
-      .tap-hint { font-size: 10px; padding: 7px; }
-      .square { aspect-ratio: 1 / 1; min-height: 0; border-radius: 7px; padding: 2px 1px; gap: 2px; }
-      .square .square-text { font-size: clamp(8px,2.3vw,10px); }
-      .square .emoji { font-size: 14px; }
-      .square.is-marked::after { width: 15px; height: 15px; line-height: 14px; font-size: 10px; right: 2px; top: 2px; }
+    button { cursor: pointer; font: inherit; }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid #de9620; outline-offset: 3px; }
+    .wrap { width: min(100% - 24px, 710px); margin-inline: auto; }
+    .hero {
+      background: radial-gradient(circle at 100% 0%, #5c3b86 0, transparent 49%), linear-gradient(135deg,#211735,#37234f);
+      color: #fff; text-align: center; padding: 25px 0 58px;
     }
-    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition: none!important; animation: none!important; } }
+    h1 { font-size: clamp(26px, 6.4vw, 49px); line-height: 1.15; letter-spacing: -.045em; margin: 0; font-weight: 950; }
+    .hero-emoji { font-size: .81em; vertical-align: .04em; letter-spacing: 0; }
+    .subtitle { color: var(--gold); font-size: clamp(12px, 2.7vw, 17px); font-weight: 830; letter-spacing: .015em; margin: 9px 0 0; }
+    .intro { color: #eee8f6; font-size: clamp(12px, 2.9vw, 15px); line-height: 1.45; margin: 9px auto 0; max-width: 520px; }
+    main { margin-top: -34px; padding-bottom: 23px; }
+    .game { padding: clamp(8px, 2.3vw, 20px); border-radius: 19px; background: #fff; box-shadow: 0 10px 40px #1e173a1b; }
+    .board-instruction { color: #5d566f; font-size: clamp(12px, 2.6vw, 15px); line-height: 1.35; font-weight: 650; margin: 7px 3px 12px; text-align: center; }
+    .bingo-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: clamp(3px,.7vw,6px); }
+    .square {
+      width: 100%; min-width: 0; aspect-ratio: 1; min-height: 0; border-radius: 9px;
+      border: 1.5px solid #dad3e7; background: #faf8fd; color: var(--ink);
+      padding: 4px 2px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; position: relative; transition: background .2s, box-shadow .2s, transform .12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .square:active { transform: scale(.96); }
+    .square .emoji { font-size: clamp(13px,3vw,23px); line-height: 1; }
+    .square .square-text { font-weight: 800; font-size: clamp(8.5px,1.75vw,12px); line-height: 1.12; text-align: center; overflow-wrap: anywhere; }
+    .square.is-marked { background: #d8f1e9; border-color: #50a78b; }
+    .square.is-marked::after {
+      content: "✓"; position: absolute; top: 3px; right: 3px; background: #16795a; color: #fff;
+      width: 17px; height: 17px; border-radius: 50%; line-height: 17px; font-size: 12px; font-weight: 900; text-align: center;
+    }
+    .square.is-winning { background: #fff0c1; border-color: #c99225; box-shadow: inset 0 0 0 2px #e0ad41; }
+    .square.is-winning::after { background: #ac7916; }
+    .square.line-flash { animation: bingo-glow 1.2s ease-out both; z-index: 1; }
+    @keyframes bingo-glow {
+      0%,55% { box-shadow: 0 0 0 3px #ffd77d, 0 0 22px 5px #f1b93a; }
+      100% { box-shadow: inset 0 0 0 2px #e0ad41; }
+    }
+    .results { margin-top: 14px; border-radius: 15px; background: #f3eefb; padding: 15px 13px 12px; }
+    .results-head { display: flex; align-items: center; justify-content: space-between; gap: 9px; }
+    .rank-main { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .rank-main-icon { font-size: clamp(26px,7vw,39px); line-height: 1; }
+    .eyebrow { color: #6d647f; font-size: 10px; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
+    .rank-name { display: block; color: #4b2783; font-weight: 900; font-size: clamp(15px,3.4vw,21px); line-height: 1.17; margin-top: 4px; }
+    .score { flex-shrink: 0; text-align: right; }
+    .score strong { color: #3e2a64; font-size: clamp(27px,7vw,36px); font-weight: 950; letter-spacing: -.05em; }
+    .score small { display: block; font-size: 10px; color: #6d647f; margin-top: -3px; }
+    .rank-badges { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: clamp(4px,1vw,9px); margin-top: 13px; }
+    .rank-badge { border-radius: 11px; border: 1px solid #d8d1e2; aspect-ratio: 1.08; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; background: #fff; min-width: 0; }
+    .rank-badge.current { background: #fff2c5; border: 2px solid #d8aa42; }
+    .rank-badge.locked { background: #e7e3ec; }
+    .rank-badge.locked .rank-emoji { filter: grayscale(1); opacity: .29; }
+    .rank-badge.locked .rank-number { opacity: .53; }
+    .rank-emoji { font-size: clamp(17px,4.5vw,30px); line-height: 1; }
+    .rank-number { font-size: 10px; font-weight: 850; color: #716782; line-height: 1.1; }
+    .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 16px; }
+    .action { min-width: 0; border: 0; border-radius: 11px; padding: 12px 8px; background: #633ca4; color: white; font-size: clamp(12px,2.8vw,14px); font-weight: 850; }
+    .action.whatsapp { background: #18845d; }
+    .action.secondary { border: 1px solid #d4c8e6; background: #fff; color: #58338e; }
+    .secondary-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-top: 9px; }
+    .secondary-actions .action { padding: 10px 4px; font-size: clamp(10.5px,2.6vw,12px); }
+    .action:disabled { opacity: .56; cursor: wait; }
+    .status { min-height: 18px; font-size: 12px; color: #3f6c59; font-weight: 650; margin: 10px 5px 0; }
+    .afterword { text-align: center; font-weight: 750; font-size: 13px; line-height: 1.5; color: #4b336f; margin: 15px 6px 5px; }
+    .extra { margin: 13px auto 0; border: 1px solid var(--line); background: #fff; border-radius: 15px; padding: 14px 17px; }
+    .extra summary { cursor: pointer; font-weight: 750; font-size: 13px; }
+    .extra p { font-size: 13px; line-height: 1.5; color: #5e596c; margin: 11px 0 0; }
+    .credit { padding: 17px 10px 23px; text-align: center; font-size: 12px; color: #777084; line-height: 1.6; }
+    .credit a { color: #523087; }
+    .celebration { border: 0; border-radius: 23px; padding: 0; width: min(92vw,440px); max-height: calc(100dvh - 28px); overflow: auto; background: #fff; box-shadow: 0 25px 80px #0e09257a; }
+    .celebration::backdrop { background: #100b2bc9; backdrop-filter: blur(2px); }
+    .celebration-content { padding: 28px 22px 23px; text-align: center; }
+    .celebration-sparks { font-size: 30px; letter-spacing: 11px; }
+    .celebration-icon { margin: 9px auto 13px; font-size: 53px; }
+    .celebration-title { margin: 0; color: #4c2b82; font-size: clamp(24px,7vw,34px); line-height: 1.12; }
+    .celebration-detail { color: #5c566c; font-size: 16px; line-height: 1.5; margin: 13px auto 22px; }
+    .celebration-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .celebration-actions #celebration-continue { grid-column: 1/-1; }
+    @media (max-width:410px) {
+      .wrap { width: min(100% - 16px,710px); }
+      .game { border-radius: 14px; padding: 8px; }
+      .square { border-radius: 6px; padding: 2px 1px; gap: 2px; }
+      .square .emoji { font-size: 13px; }
+      .square .square-text { font-size: clamp(8px,2.35vw,10px); line-height: 1.07; }
+      .square.is-marked::after { width: 14px; height: 14px; line-height: 13px; font-size: 10px; top: 2px; right: 2px; }
+      .results { padding: 13px 9px 10px; }
+      .rank-main { gap: 5px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none!important; transition: none!important; } }
   </style>
   <script src="./version.js" defer></script>
   <script src="./qr-code.js" defer></script>
@@ -117,73 +113,60 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <div class="hero-top">
-        <div class="mark">THE NETWORKER'S SURVIVAL GAME</div>
-        <span class="release" id="version">Version</span>
-      </div>
-      <div class="eyebrow">THE GOOD. THE BAD. THE CRINGEWORTHY.</div>
-      <h1>Networking<br>BINGO! <span aria-hidden="true">😂</span></h1>
-      <p>Wrong venue? Pitch-slapped? Escaped to the loo? Tick the networking moments you've actually experienced. No judgement. Well, almost.</p>
+      <h1><span class="hero-emoji" aria-hidden="true">🤝</span> Networking Bingo <span class="hero-emoji" aria-hidden="true">☕</span></h1>
+      <p class="subtitle">The Good. The Bad. The Cringeworthy.</p>
+      <p class="intro">How many of these networking moments have YOU experienced?</p>
     </div>
   </header>
   <main class="wrap">
-    <section class="card" aria-label="Networking Bingo card">
-      <div class="board-head">
-        <div><h2>Your Bingo card</h2><p>Tap each square that applies to you.</p></div>
-        <span class="tap-hint">👇 TAP TO TICK</span>
-      </div>
-      <div class="letter-row" aria-hidden="true"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
-      <div class="bingo-grid" id="board" aria-label="25-square Bingo board"></div>
-      <div class="results" role="status" aria-live="polite" aria-atomic="true">
-        <div class="results-top">
-          <div>
-            <div class="mini-label">Your experiences</div>
-            <div class="score"><strong id="score">0</strong><small>of 24</small></div>
+    <section class="game" aria-label="Networking Bingo card">
+      <p class="board-instruction">Tap the moments you've experienced. Complete a row, column or diagonal!</p>
+      <div id="board" class="bingo-grid" aria-label="25-square Networking Bingo board"></div>
+      <div class="results" role="group" aria-label="Your Networking Bingo rank">
+        <div class="results-head">
+          <div class="rank-main">
+            <span id="rank-icon" class="rank-main-icon" aria-hidden="true">👋</span>
+            <div>
+              <div class="eyebrow">Your networking rank</div>
+              <strong id="rank-title" class="rank-name">Networking Newbie</strong>
+            </div>
           </div>
-          <div class="outcome">
-            <strong id="outcome">No Bingo... yet!</strong>
-            <span id="lines">0 completed lines</span>
-          </div>
+          <div class="score"><strong><span id="score">0</span>/25</strong><small>square moments</small></div>
         </div>
-        <div class="progress" aria-hidden="true"><div id="progress"></div></div>
+        <div id="rank-badges" class="rank-badges" aria-label="Six networking rank milestones"></div>
       </div>
       <div class="actions">
         <button class="action" id="share" type="button">📲 Share my card</button>
-        <button class="action whatsapp" id="whatsapp" type="button">💬 WhatsApp</button>
-        <button class="action secondary" id="save" type="button">🖼️ Save image</button>
-        <button class="action secondary" id="copy" type="button">📋 Copy score</button>
-        <button class="action secondary" id="reset" type="button">↺ Start again</button>
+        <button class="action whatsapp" id="whatsapp" type="button">💬 Challenge a friend</button>
+      </div>
+      <div class="secondary-actions">
+        <button class="action secondary" id="save" type="button">Save image</button>
+        <button class="action secondary" id="copy" type="button">Copy score</button>
+        <button class="action secondary" id="reset" type="button">Start again</button>
       </div>
       <p id="status" class="status" role="status" aria-live="polite"></p>
+      <p class="afterword">What networking moment have we missed? The more cringe, the better!</p>
     </section>
-    <div class="below">
-      <section class="panel">
-        <h3>How to play</h3>
-        <p>Tap the experiences you've had. A full row, column or diagonal = <strong>BINGO!</strong> Two lines = <strong>Double Bingo!</strong> All 24 experiences = <strong>Full House!</strong></p>
-        <p>The centre square is free. Share your card or tell us your funniest networking story!</p>
-      </section>
-      <section class="panel">
-        <details>
-          <summary>About this little experiment</summary>
-          <p>Just a tongue-in-cheek celebration of the awkward and wonderful world of business networking. Not an assessment of your networking skills!</p>
-          <p>No sign-in, tracking or lead capture. Your ticks stay in this browser on this device until you clear them. Sharing is always optional.</p>
-          <p id="changes"></p>
-        </details>
-      </section>
-      <div class="smallprint">Made for laughs, conversations and connections. <strong>Adrian Croft</strong> - Market Harborough Business Buzz Host and enthusiastic networker. 🤝</div>
-    </div>
+    <details class="extra">
+      <summary>How to play &amp; about this game</summary>
+      <p>Tick each networking moment you've experienced. A complete row, column or diagonal earns Bingo. All 25 squares earns Full House!</p>
+      <p>Your ticks are saved on this device. No sign-in, tracking or lead capture. Sharing is optional.</p>
+      <p>Just a bit of networking fun. Your rank is based on the number of squares you've ticked - not your networking ability!</p>
+      <p id="changes"></p>
+      <p>Version <span id="version">-</span></p>
+    </details>
   </main>
-  <div id="line-toast" class="line-toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  <div class="credit">A little networking nonsense from <strong>Adrian Croft</strong> - <a href="https://aqcroft.com" target="_blank" rel="noopener noreferrer">aqcroft.com</a></div>
   <dialog id="celebration" class="celebration" aria-labelledby="celebration-title" aria-describedby="celebration-detail">
     <div class="celebration-content">
-      <div class="celebration-sparks" aria-hidden="true"><span>🎊</span><span>✨</span><span>🎉</span></div>
+      <div class="celebration-sparks" aria-hidden="true">🎊 ✨ 🎉</div>
       <div class="celebration-icon" aria-hidden="true">🏆</div>
-      <h2 class="celebration-title" id="celebration-title">BINGO! 🎉</h2>
+      <h2 class="celebration-title" id="celebration-title">BINGO!</h2>
       <p class="celebration-detail" id="celebration-detail">You've completed a line!</p>
       <div class="celebration-actions">
-        <button type="button" class="action" id="celebration-share">📲 Share card</button>
-        <button type="button" class="action whatsapp" id="celebration-whatsapp">💬 WhatsApp</button>
-        <button type="button" class="action secondary" id="celebration-continue" autofocus>Keep playing</button>
+        <button class="action" id="celebration-share" type="button">📲 Share card</button>
+        <button class="action whatsapp" id="celebration-whatsapp" type="button">💬 WhatsApp</button>
+        <button class="action secondary" id="celebration-continue" type="button" autofocus>Keep playing</button>
       </div>
     </div>
   </dialog>
