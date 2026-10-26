@@ -3,239 +3,214 @@
 const APP_URL = "https://aqcroft.github.io/networking_bingo/";
 
 const SQUARES = [
-  { emoji: "📅", label: "Turned up on the wrong day", full: "Went to a networking event on the wrong date" },
-  { emoji: "🎯", label: "Got a sales pitch before hello", full: "Someone immediately tried selling you their services instead of getting to know you - a classic pitch-slap!" },
-  { emoji: "👔", label: "Arrived seriously overdressed", full: "Arrived at a networking event dressed much more formally than everyone else" },
-  { emoji: "🎤", label: "Froze mid-60-second pitch", full: "Completely lost your train of thought during a 60-second introduction" },
-  { emoji: "🤝", label: "Gave a referral, no strings", full: "Recommended someone because they were a good fit, without expecting a referral in return" },
-  { emoji: "⏰", label: "Arrived far too early", full: "Turned up ridiculously early for a networking event" },
-  { emoji: "🔦", label: "Forgot I was the spotlight", full: "Forgot you were supposed to be the featured speaker or spotlight guest" },
-  { emoji: "🫣", label: "Called someone the wrong name", full: "Confidently addressed someone by the wrong name" },
+  { emoji: "📍", label: "Went to the wrong venue", full: "Arrived at a networking event at the completely wrong venue" },
+  { emoji: "🎯", label: "Got pitched before hello", full: "Someone started selling before they'd even said hello" },
+  { emoji: "👔", label: "Got the dress code wrong", full: "Turned up noticeably overdressed or underdressed" },
+  { emoji: "🎤", label: "Froze during my 60 seconds", full: "Lost your train of thought during your 60-second introduction" },
+  { emoji: "🤝", label: "Gave a no-strings referral", full: "Referred someone simply because they were right for the job" },
+  { emoji: "🏷️", label: "Got home still wearing my badge", full: "Left an event and forgot to take your name badge off until you got home" },
+  { emoji: "🎙️", label: "Forgot I was speaking", full: "Forgot you were meant to give a talk or do the spotlight" },
+  { emoji: "🫣", label: "Called someone the wrong name", full: "Confidently called somebody by the wrong name" },
   { emoji: "🚽", label: "Escaped a chat via the loo", full: "Used a trip to the toilet as an excuse to escape a conversation" },
-  { emoji: "🎁", label: "Got a surprise referral", full: "Received a lovely referral you weren't expecting" },
-  { emoji: "📍", label: "Went to the wrong venue", full: "Arrived at a different venue from the actual networking event" },
-  { emoji: "👀", label: "Looked past me for someone else", full: "Someone looked over your shoulder for someone more interesting whilst you were speaking" },
-  { emoji: "☕", label: "FREE SPACE", full: "The free middle square - no networking mishap required!" },
-  { emoji: "📝", label: "Turned up totally unprepared", full: "Attended a networking event without preparing what to say or bring" },
-  { emoji: "💬", label: "One-to-one ran for 2+ hours", full: "Had a one-to-one that carried on for more than two hours" },
-  { emoji: "👟", label: "Arrived clearly underdressed", full: "Turned up much more casually dressed than everyone else" },
-  { emoji: "🏃", label: "Walked in embarrassingly late", full: "Arrived so late that everyone noticed you walking in" },
-  { emoji: "🔄", label: "Gave referral, got none back", full: "Gave someone a referral and secretly hoped they'd reciprocate, but they never did" },
-  { emoji: "😬", label: "Recognised face, forgot name", full: "Recognised someone but could not remember their name" },
-  { emoji: "💜", label: "Made a real networking friend", full: "Made a friend through networking who is more than just a business contact" },
-  { emoji: "⌚", label: "Got the event start time wrong", full: "Turned up on the right day but got the starting time completely wrong" },
-  { emoji: "🗣️", label: "Trapped in a sales monologue", full: "Got trapped listening to someone talk about their business without letting you speak" },
-  { emoji: "🙋", label: "Introduced myself twice", full: "Introduced yourself to somebody you'd already met or spoken to at an event" },
-  { emoji: "🌱", label: "Won business months later", full: "A networking contact became a customer or client months after you first met" },
-  { emoji: "🥐", label: "Went partly for the food", full: "Chose to attend a networking event partly because the refreshments sounded good" }
+  { emoji: "🎁", label: "Got a surprise referral", full: "Received a lovely referral out of the blue" },
+  { emoji: "📱", label: "Got a sales DM before leaving", full: "Received a sales pitch on LinkedIn before you'd left the networking event" },
+  { emoji: "👀", label: "They lost interest mid-chat", full: "Someone asked what you did, then visibly lost interest" },
+  { emoji: "🤝", label: "Introduced two who did business", full: "Introduced two people who later did business with each other" },
+  { emoji: "💡", label: "Found an unlikely collaborator", full: "Met someone you wouldn't expect to work with and found a collaboration" },
+  { emoji: "💬", label: "One-to-one ran for 2+ hours", full: "Had a one-to-one that went on for more than two hours" },
+  { emoji: "😳", label: "Asked what I do, then tuned out", full: "Someone asked what you do then switched off before you answered" },
+  { emoji: "🥐", label: "Went partly for the food", full: "Attended a networking event partly because of its food or refreshments" },
+  { emoji: "🔄", label: "Gave a referral, got none back", full: "Gave a referral and secretly hoped for one back, but got nothing" },
+  { emoji: "📅", label: "Said 'We must meet!'... didn't", full: "Promised a one-to-one but never actually arranged it" },
+  { emoji: "💜", label: "Made a real networking friend", full: "Made a genuine friendship through networking" },
+  { emoji: "👋", label: "Reconnected with an old contact", full: "Bumped into and reconnected with somebody you'd lost touch with" },
+  { emoji: "😶", label: "Made a joke nobody laughed at", full: "Tried to be funny at a networking event and got absolutely no laughs" },
+  { emoji: "🙋", label: "Introduced myself twice", full: "Introduced yourself to someone you had already met" },
+  { emoji: "🌱", label: "Won business months later", full: "Won business months after first meeting somebody at networking" },
+  { emoji: "📸", label: "Caught mid-mouthful in a photo", full: "Appeared in an event photo with a mouthful of food" }
 ];
 
-const CENTRE = 12;
-const STORAGE_KEY = "networking-bingo-selected-v1";
+const STORAGE_KEY = "networking-bingo-edition1-selected-v2";
+const AWARDS_KEY = "networking-bingo-edition1-awards-v1";
 const BOARD = document.getElementById("board");
 const SCORE = document.getElementById("score");
-const OUTCOME = document.getElementById("outcome");
-const LINES = document.getElementById("lines");
-const PROGRESS = document.getElementById("progress");
+const RANK = document.getElementById("rank-title");
+const RANK_ICON = document.getElementById("rank-icon");
+const BADGES = document.getElementById("rank-badges");
 const STATUS = document.getElementById("status");
-const LINE_TOAST = document.getElementById("line-toast");
 const CELEBRATION = document.getElementById("celebration");
 const CELEBRATION_TITLE = document.getElementById("celebration-title");
 const CELEBRATION_DETAIL = document.getElementById("celebration-detail");
 let lastSelectedSquareIndex = null;
 
+const RANKS = [
+  { threshold: 0,  name: "Networking Newbie",         icon: "👋" },
+  { threshold: 5,  name: "Small-Talk Survivor",      icon: "☕" },
+  { threshold: 10, name: "Chatterbox Champion",      icon: "🗣️" },
+  { threshold: 15, name: "Networking Ninja",         icon: "🥷" },
+  { threshold: 20, name: "Social Supremo",           icon: "🎩" },
+  { threshold: 25, name: "Galaxy's Greatest Greeter",icon: "🌌" }
+];
+
 const WIN_LINES = [];
 for (let n = 0; n < 5; n++) {
-  WIN_LINES.push([0, 1, 2, 3, 4].map(col => n * 5 + col));
-  WIN_LINES.push([0, 1, 2, 3, 4].map(row => row * 5 + n));
+  WIN_LINES.push({ type: "row", indices: [0,1,2,3,4].map(col => n * 5 + col) });
+  WIN_LINES.push({ type: "column", indices: [0,1,2,3,4].map(row => row * 5 + n) });
 }
-WIN_LINES.push([0, 6, 12, 18, 24], [4, 8, 12, 16, 20]);
+WIN_LINES.push(
+  { type: "diagonal", indices: [0,6,12,18,24] },
+  { type: "diagonal", indices: [4,8,12,16,20] }
+);
 
-function showLineToast(message) {
-  if (lineToastTimeout !== null) clearTimeout(lineToastTimeout);
-  LINE_TOAST.textContent = message;
-  LINE_TOAST.hidden = false;
-  lineToastTimeout = setTimeout(() => {
-    LINE_TOAST.hidden = true;
-    lineToastTimeout = null;
-  }, 2600);
-}
-
-function hideLineToast() {
-  if (lineToastTimeout !== null) clearTimeout(lineToastTimeout);
-  lineToastTimeout = null;
-  LINE_TOAST.hidden = true;
-}
-
-function readSaved() {
+function getStoredArray(key) {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(saved)
-      ? saved.filter(value => Number.isInteger(value) && value >= 0 && value < 25)
-      : [];
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value : [];
   } catch (_) {
     return [];
   }
 }
-
-const selected = new Set([...readSaved(), CENTRE]);
-
-// A new line is celebrated only once during the current game. Existing
-// completed lines are considered already celebrated when a player returns.
-const celebratedLines = new Set(stats().completed.map(line => line.join(",")));
-let firstBingoCelebrated = stats().lineCount > 0;
-let fullHouseCelebrated = stats().fullHouse;
-let lineToastTimeout = null;
-
-function store() {
+const selected = new Set(
+  getStoredArray(STORAGE_KEY).filter(i => Number.isInteger(i) && i >= 0 && i < 25)
+);
+const celebratedTypes = new Set(
+  getStoredArray(AWARDS_KEY).filter(t => ["row","column","diagonal","fullHouse"].includes(t))
+);
+function persist() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...selected].filter(i => i !== CENTRE)));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...selected]));
+    localStorage.setItem(AWARDS_KEY, JSON.stringify([...celebratedTypes]));
   } catch (_) {
-    // The game still works when browser storage is disabled.
+    // Storage is optional; the game still works if it's disabled.
   }
 }
 
 function stats() {
-  const completed = WIN_LINES.filter(line => line.every(i => selected.has(i)));
-  const experiences = selected.size - 1;
+  const completed = WIN_LINES.filter(line => line.indices.every(i => selected.has(i)));
   return {
-    experiences,
+    experiences: selected.size,
     completed,
     lineCount: completed.length,
-    fullHouse: experiences === 24,
-    diagonal: completed.some(line => (line[0] === 0 && line[4] === 24) || (line[0] === 4 && line[4] === 20))
+    fullHouse: selected.size === 25
   };
 }
-
-function resultTitle(s) {
-  if (s.fullHouse) return "🏠 FULL HOUSE!";
-  if (s.lineCount >= 2) return "✌️ DOUBLE BINGO!";
-  if (s.lineCount >= 1) return "🎉 BINGO!";
-  if (s.experiences >= 15) return "So close... maybe! 😂";
-  if (s.experiences >= 8) return "You're a seasoned networker!";
-  return "No Bingo... yet!";
+function rankFor(count) {
+  return [...RANKS].reverse().find(rank => count >= rank.threshold);
 }
-
 function announce(message) {
   STATUS.textContent = message;
 }
-
-function describeLine(line) {
-  if (line[0] === 0 && line[4] === 24 || line[0] === 4 && line[4] === 20) return "a diagonal";
-  if (line[1] - line[0] === 1) return "a row";
-  return "a column";
+function updateResults() {
+  const s = stats();
+  const rank = rankFor(s.experiences);
+  SCORE.textContent = String(s.experiences);
+  RANK.textContent = rank.name;
+  RANK_ICON.textContent = rank.icon;
+  BADGES.replaceChildren();
+  RANKS.forEach((item, i) => {
+    const unlocked = s.experiences >= item.threshold;
+    const current = item.threshold === rank.threshold;
+    const cell = document.createElement("div");
+    cell.className = "rank-badge" + (unlocked ? " earned" : " locked") + (current ? " current" : "");
+    cell.setAttribute("aria-label", item.name + ", " + item.threshold + " squares, " + (unlocked ? "unlocked" : "locked"));
+    cell.title = item.name + " (" + item.threshold + "/25)";
+    cell.innerHTML = '<span class="rank-emoji" aria-hidden="true"></span><span class="rank-number"></span>';
+    cell.querySelector(".rank-emoji").textContent = item.icon;
+    cell.querySelector(".rank-number").textContent = String(item.threshold);
+    BADGES.appendChild(cell);
+  });
 }
-
-function showCelebration(before, after, newlyCompleted) {
-  if (!newlyCompleted.length) return;
-  const winCount = newlyCompleted.length;
-  // Only interrupt play for first Bingo and the first Full House.
-  // Further lines get a brief toast instead of a repeated modal.
-  if (after.fullHouse && !fullHouseCelebrated) {
-    fullHouseCelebrated = true;
-    hideLineToast();
-    CELEBRATION_TITLE.textContent = "FULL HOUSE! 🏠";
-    CELEBRATION_DETAIL.textContent = "Every square ticked. You've certainly seen a thing or two at networking events! 😂";
-    CELEBRATION.showModal();
-  } else if (!firstBingoCelebrated) {
-    firstBingoCelebrated = true;
-    hideLineToast();
-    CELEBRATION_TITLE.textContent = "BINGO! 🎉";
-    CELEBRATION_DETAIL.textContent = "You've completed " + describeLine(newlyCompleted[0]) + "! What's your most memorable networking moment?";
-    CELEBRATION.showModal();
-  } else if (after.lineCount >= 2 && before.lineCount < 2) {
-    showLineToast("✌️ Double Bingo! Keep going...");
-  } else {
-    showLineToast("🎉 " + (after.lineCount === 1 ? "Bingo again!" : after.lineCount + " completed lines!") + (winCount > 1 ? " Nice combo!" : ""));
-  }
-}
-
-function drawBoard() {
+function drawBoard(newSquares = []) {
+  const s = stats();
+  const winning = new Set(s.completed.flatMap(line => line.indices));
+  const flashes = new Set(newSquares);
   BOARD.replaceChildren();
   SQUARES.forEach((square, i) => {
     const button = document.createElement("button");
     const marked = selected.has(i);
     button.type = "button";
-    button.className = "square" + (marked ? " is-marked" : "") + (i === CENTRE ? " free" : "");
+    button.className = "square" + (marked ? " is-marked" : "") +
+      (winning.has(i) ? " is-winning" : "") +
+      (flashes.has(i) ? " line-flash" : "");
     button.setAttribute("aria-pressed", String(marked));
     button.setAttribute("aria-label", square.full + (marked ? ", checked" : ", not checked"));
     button.innerHTML = '<span class="emoji" aria-hidden="true"></span><span class="square-text"></span>';
     button.querySelector(".emoji").textContent = square.emoji;
     button.querySelector(".square-text").textContent = square.label;
-    if (i === CENTRE) {
-      button.disabled = true;
-      button.title = "Free centre square";
-    } else {
-      button.addEventListener("click", () => {
-        const before = stats();
-        if (selected.has(i)) selected.delete(i);
-        else selected.add(i);
-        store();
-        drawBoard();
-        updateResults();
-        const after = stats();
-        const newlyCompleted = after.completed.filter(line =>
-          !before.completed.includes(line) && !celebratedLines.has(line.join(","))
-        );
-        for (const line of newlyCompleted) celebratedLines.add(line.join(","));
-        lastSelectedSquareIndex = i;
-        if (newlyCompleted.length) {
-          showCelebration(before, after, newlyCompleted);
-          announce("BINGO! You've completed " + newlyCompleted.length + " new " + (newlyCompleted.length === 1 ? "line" : "lines") + ". 🎉");
-        } else {
-          announce("");
-          BOARD.children[i].focus({ preventScroll: true });
-        }
-      });
-    }
+    button.addEventListener("click", () => {
+      const before = stats();
+      if (selected.has(i)) selected.delete(i); else selected.add(i);
+      const after = stats();
+      const newLines = after.completed.filter(line => !before.completed.includes(line));
+      drawBoard(newLines.flatMap(line => line.indices));
+      updateResults();
+      const newTypes = [...new Set(newLines.map(line => line.type))]
+        .filter(type => !celebratedTypes.has(type));
+      // Already-completed types on a saved board don't trigger delayed surprises.
+      const priorTypes = new Set(before.completed.map(line => line.type));
+      const firstTypes = newTypes.filter(type => !priorTypes.has(type));
+      firstTypes.forEach(type => celebratedTypes.add(type));
+      const firstFullHouse = after.fullHouse && !celebratedTypes.has("fullHouse");
+      if (firstFullHouse) celebratedTypes.add("fullHouse");
+      persist();
+      lastSelectedSquareIndex = i;
+      if (firstTypes.length || firstFullHouse) {
+        celebrate(firstTypes, firstFullHouse, rankFor(after.experiences).name);
+      } else {
+        announce(newLines.length ? "Another Bingo line completed!" : "");
+        BOARD.children[i].focus({ preventScroll: true });
+      }
+    });
     BOARD.appendChild(button);
   });
 }
-
-function updateResults() {
-  const s = stats();
-  SCORE.textContent = String(s.experiences);
-  OUTCOME.textContent = resultTitle(s);
-  LINES.textContent = s.lineCount + " completed " + (s.lineCount === 1 ? "line" : "lines") + (s.diagonal ? " - diagonal included!" : "");
-  PROGRESS.style.width = (s.experiences / 24 * 100) + "%";
+function celebrate(types, fullHouse, rankName) {
+  const names = { row: "a row", column: "a column", diagonal: "a diagonal" };
+  if (fullHouse) {
+    CELEBRATION_TITLE.textContent = "🏠 FULL HOUSE!";
+    CELEBRATION_DETAIL.textContent = "25 out of 25! You are officially Galaxy's Greatest Greeter.";
+  } else if (types.length > 1) {
+    CELEBRATION_TITLE.textContent = "🎉 MULTIPLE BINGOS!";
+    CELEBRATION_DETAIL.textContent = "You've completed " + types.map(t => names[t]).join(" and ") + "!";
+  } else {
+    const type = types[0];
+    CELEBRATION_TITLE.textContent = type === "row" ? "🎉 BINGO!" :
+      type === "column" ? "🏆 COLUMN BINGO!" : "✨ DIAGONAL BINGO!";
+    CELEBRATION_DETAIL.textContent = "You've completed " + names[type] + "!";
+  }
+  announce(CELEBRATION_TITLE.textContent + " " + CELEBRATION_DETAIL.textContent);
+  if (!CELEBRATION.open) CELEBRATION.showModal();
 }
-
 function shareText() {
-  const s = stats();
+  const s = stats(), rank = rankFor(s.experiences);
   return [
-    "I played Networking Bingo! 😂",
-    "I ticked " + s.experiences + "/24 squares and completed " + s.lineCount + " " + (s.lineCount === 1 ? "line" : "lines") + "!",
+    "I played Networking Bingo! 🤝☕",
+    "I ticked " + s.experiences + "/25 and earned the rank of " + rank.name + "!",
     "Fancy a go? Play it here:",
     APP_URL
   ].join("\n");
 }
-
 function openWhatsAppShare() {
-  // A prefilled text link is reliable on WhatsApp; attaching an image to the
-  // same WhatsApp draft isn't supported by the wa.me deep link.
-  const url = "https://wa.me/?text=" + encodeURIComponent(shareText());
-  window.open(url, "_blank", "noopener,noreferrer");
+  // WhatsApp's deep link shares text rather than attaching an image.
+  window.open("https://wa.me/?text=" + encodeURIComponent(shareText()), "_blank", "noopener,noreferrer");
 }
-
 async function copyScore() {
-  const message = shareText();
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(shareText());
     } else {
       const helper = document.createElement("textarea");
-      helper.value = message;
+      helper.value = shareText();
       helper.style.position = "fixed";
       helper.style.opacity = "0";
       document.body.appendChild(helper);
       helper.select();
-      const didCopy = document.execCommand("copy");
+      if (!document.execCommand("copy")) throw new Error("Copy unavailable");
       helper.remove();
-      if (!didCopy) throw new Error("Copy unavailable");
     }
-    announce("Score copied! Paste it into your LinkedIn comment. 👍");
+    announce("Copied! Paste your score into a LinkedIn comment. 👍");
   } catch (_) {
-    announce("Copy is unavailable in this browser. You can share or save the image instead.");
+    announce("Copy isn't available here. Try WhatsApp or Share my card.");
   }
 }
 
