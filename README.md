@@ -6,15 +6,16 @@ A mobile-friendly, tongue-in-cheek Bingo game about the embarrassing, surprising
 
 ## What it does
 
-- A familiar 5 × 5 board of **square tiles** with 24 tickable networking experiences and a free centre space.
-- Detects rows, columns and diagonals automatically. First Bingo and Full House get celebration pop-ups; extra lines get small, non-blocking messages instead. Two complete lines = Double Bingo; all 24 experiences = Full House.
-- Saves your ticks locally in your browser. No account, tracking, forms or lead capture.
-- Creates a shareable PNG of the completed card, including a visible game URL and a scannable QR code.
-- Offers one-tap WhatsApp sharing with a prewritten invitation and clickable game link.
-- Native phone image sharing includes the invitation text where supported (some receiving apps ignore image captions).
-- The QR code is stored locally in `qr-code.js`; there are no remote QR services or extra tracking requests.
-- Offers a copyable text result for LinkedIn and an easy Reset button.
-- No external libraries, build system, or paid hosting required.
+- A mobile-friendly 5 x 5 board of square tiles with **25 networking moments** and no free centre square.
+- A balanced mix of eight positive experiences, eight silly mishaps and nine cringe-worthy ones. The same board appears for everyone.
+- Your current title and six rank badges: Networking Newbie (0), Small-Talk Survivor (5), Chatterbox Champion (10), Networking Ninja (15), Social Supremo (20), and Galaxy's Greatest Greeter (25). The badge strip displays icons and numbers only.
+- Detects completed rows, columns and diagonals. Newly completed lines briefly glow, then stay highlighted.
+- A first completed row, column and diagonal get separate one-time celebrations (combined when earned together); completing all 25 squares gets Full House. Additional lines don't interrupt play.
+- Ticks and earned line-type celebrations are kept in local browser storage; resetting clears both. Edition 1 starts afresh because the squares are different from the previous prototype.
+- Creates a shareable PNG of your marked card, current rank and rank icons, with a visible URL and offline, scannable QR code.
+- Dedicated WhatsApp invitation with the game link and score; native image sharing includes the invitation text where the receiving app allows it.
+- No account, trackers, forms, advertising, external code libraries or lead capture.
+
 
 ## Publish the website
 
@@ -31,22 +32,22 @@ On a phone, GitHub's website in your browser may be easier than the GitHub mobil
 
 ## How to edit the board
 
-Open [app.js](./app.js) and edit the SQUARES array at the top. There must be exactly 25 entries in a 5 × 5 grid, with the free space at index 12 (the thirteenth square). Each label is a concise, self-explanatory phrase displayed both on the card and the exported image; full is the longer accessible description. When editing, prioritise clarity over cryptic shorthand, and check the words fit on narrow mobile screens and on the PNG.
+The 25 scenarios are in the `SQUARES` array at the start of [app.js](./app.js). Short, standalone `label` phrases appear on both the mobile card and exported PNG; `full` descriptions help screen-reader users. There is no free square. Keep the board fixed for comparable results.
 
-The board is intentionally fixed, not shuffled, so people playing from the same LinkedIn post see the same squares.
+The six rank names, thresholds and icons live in `RANKS` in [app.js](./app.js). The current rank is displayed in full and all six thresholds appear in the badge strip, with locked icons faded out.
 
 ## How to test
 
-Open the published website on mobile and desktop:
+1. Open the site on a mobile-sized screen and check all 25 squares remain square with legible wording.
+2. Tick squares to cross each threshold (0, 5, 10, 15, 20, 25). The title and six badges must update without milestone pop-ups.
+3. Complete a row, a column and a diagonal in turn. Each **first of its type** should open a single modal; additional lines of that type should only highlight.
+4. Confirm completed-line squares remain subtly gold and new lines briefly glow. Unticking an earned line should remove its highlight; reticking it should not open its achievement modal again.
+5. If one tap completes multiple first-time line types, it should show **one** combined modal.
+6. Tick all 25 squares for Full House and Galaxy's Greatest Greeter, in one celebration. Untick and retick to check the same awards do not fire again.
+7. Refresh and confirm ticks and already celebrated types persist. Start again should reset both, with the next row celebrating once again.
+8. Try Share my card and Save image. Check the 25 marked squares, badges, rank, URL and QR appear and can be scanned.
+9. Test the WhatsApp message and native image sharing (some receiving apps remove accompanying caption text).
 
-1. Tick and untick some squares; refresh and confirm they remain selected.
-2. Complete a horizontal row, vertical column, and diagonal. Check that lines are counted once each.
-3. Complete one line to see the Bingo modal, a second line to see a non-blocking message, and all 24 experiences for the Full House modal. Untick and retick an earned line to check it doesn't celebrate again.
-4. Try Share my card and Save image; confirm that the PNG contains your marked squares, score, full URL and a scannable QR code.
-5. Scan the exported QR code with another phone and check it opens the correct game.
-6. Try WhatsApp and check the generated invitation contains a clickable link and your score.
-7. Confirm native image sharing preserves the link where supported; it can legitimately be stripped by receiving apps.
-8. Reset, refresh, and check that the centre free space remains selected and everything else is blank. Confirm a new game can celebrate first Bingo again.
 
 ## Versioning and changes
 
@@ -54,4 +55,4 @@ Follow [AGENTS.md](./AGENTS.md) for every code change. Update version.js and [CH
 
 ## Status
 
-**Prototype (v0.4.0).** The wording of the squares and visual presentation can be refined following feedback. The project is not presented as an official Business Buzz product.
+**Edition 1 prototype.** Designed as a light-hearted personal project from Adrian Croft. It is not presented as an official Business Buzz or Utility Warehouse product. The app version itself is always defined in version.js.
