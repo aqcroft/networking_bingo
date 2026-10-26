@@ -273,94 +273,102 @@ function drawQrCode(ctx, x, y, size) {
 function makeImage() {
   const canvas = document.createElement("canvas");
   canvas.width = 1080;
-  canvas.height = 1580;
+  canvas.height = 1670;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Image creation is unavailable");
   const s = stats();
+  const rank = rankFor(s.experiences);
+  const lineSquares = new Set(s.completed.flatMap(line => line.indices));
 
   ctx.fillStyle = "#f6f3ef";
-  ctx.fillRect(0, 0, 1080, 1580);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#241a40";
-  ctx.fillRect(0, 0, 1080, 221);
-  ctx.fillStyle = "#ffd77d";
-  ctx.font = "800 25px Arial, sans-serif";
-  ctx.fillText("THE NETWORKER'S SURVIVAL GAME", 45, 46);
+  ctx.fillRect(0, 0, 203);
+  ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
-  ctx.font = "900 82px Arial, sans-serif";
-  ctx.fillText("NETWORKING BINGO!", 43, 134);
-  ctx.fillStyle = "#e8ddff";
-  ctx.font = "27px Arial, sans-serif";
-  ctx.fillText("The good. The bad. The cringeworthy.", 46, 183);
+  ctx.font = "900 72px Arial, sans-serif";
+  ctx.fillText("NETWORKING BINGO", 44, 100);
+  ctx.fillStyle = "#ffd77d";
+  ctx.font = "700 29px Arial, sans-serif";
+  ctx.fillText("The Good. The Bad. The Cringeworthy.", 46, 156);
 
-  const left = 43;
-  const gap = 8;
+  const left = 43, gap = 8;
   const side = (1080 - left * 2 - 4 * gap) / 5;
-  const top = 294;
-  const rowH = 188;
-
-  "BINGO".split("").forEach((letter, col) => {
-    const x = left + col * (side + gap);
-    roundedRect(ctx, x, 234, side, 48, 8, "#5b329d");
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "900 34px Arial, sans-serif";
-    ctx.fillText(letter, x + side / 2, 269);
-  });
-
+  const top = 232;
   SQUARES.forEach((square, i) => {
-    const row = Math.floor(i / 5);
-    const col = i % 5;
-    const x = left + col * (side + gap);
-    const y = top + row * (rowH + gap);
-    roundedRect(ctx, x, y, side, rowH, 13, i === CENTRE ? "#fff0ba" : selected.has(i) ? "#cbeee4" : "#ffffff");
+    const row = Math.floor(i / 5), col = i % 5;
+    const x = left + col * (side + gap), y = top + row * (side + gap);
+    const marked = selected.has(i);
+    roundedRect(ctx, x, y, side, side, 13,
+      lineSquares.has(i) ? "#ffe4a0" : marked ? "#cbeee4" : "#ffffff");
     ctx.textAlign = "center";
     ctx.fillStyle = "#27253a";
-    ctx.font = "46px Arial, sans-serif";
-    ctx.fillText(square.emoji, x + side / 2, y + 62);
-    // Fit the complete phrase on the shared image. Never silently chop off
-    // explanatory words, especially on the more unusual networking squares.
-    let fontSize = 22;
-    let lines = [];
+    ctx.font = "42px Arial, sans-serif";
+    ctx.fillText(square.emoji, x + side / 2, y + 60);
+
+    let fontSize = 22, textLines = [];
     do {
       ctx.font = "800 " + fontSize + "px Arial, sans-serif";
-      lines = wrapLines(ctx, square.label, side - 20);
-      if (lines.length <= 4) break;
+      textLines = wrapLines(ctx, square.label, side - 20);
+      if (textLines.length <= 4) break;
       fontSize--;
-    } while (fontSize >= 17);
+    } while (fontSize > 16);
     const lineHeight = fontSize + 3;
-    const blockTop = y + 95 + Math.max(0, 4 - lines.length) * 8;
-    lines.forEach((line, j) => ctx.fillText(line, x + side / 2, blockTop + j * lineHeight));
-    if (selected.has(i)) {
-      roundedRect(ctx, x + side - 43, y + 10, 32, 32, 16, i === CENTRE ? "#a77300" : "#15775a");
+    const textTop = y + 100 + Math.max(0, 4 - textLines.length) * 8;
+    textLines.forEach((line, j) => ctx.fillText(line, x + side / 2, textTop + j * lineHeight));
+    if (marked) {
+      roundedRect(ctx, x + side - 43, y + 10, 32, 32, 16,
+        lineSquares.has(i) ? "#ac7916" : "#15775a");
       ctx.fillStyle = "#ffffff";
       ctx.font = "900 24px Arial, sans-serif";
-      ctx.fillText(i === CENTRE ? "★" : "✓", x + side - 27, y + 34);
+      ctx.fillText("✓", x + side - 27, y + 34);
     }
   });
 
-  roundedRect(ctx, 43, 1284, 994, 231, 18, "#ede4f8");
+  roundedRect(ctx, 43, 1264, 994, 359, 18, "#ede4f8");
   ctx.textAlign = "left";
   ctx.fillStyle = "#5b329d";
-  ctx.font = "900 49px Arial, sans-serif";
-  ctx.fillText(resultTitle(s).replace(/^[^A-Za-z]+/, ""), 67, 1350);
-  ctx.font = "700 28px Arial, sans-serif";
+  ctx.font = "900 42px Arial, sans-serif";
+  ctx.fillText(rank.icon + " " + rank.name, 67, 1329);
   ctx.fillStyle = "#312c4a";
-  ctx.fillText(s.experiences + "/24 experiences  •  " + s.lineCount + " completed lines", 67, 1397);
-  ctx.font = "800 23px Arial, sans-serif";
+  ctx.font = "700 29px Arial, sans-serif";
+  ctx.fillText(s.experiences + "/25 networking moments", 67, 1380);
   ctx.fillStyle = "#4e4860";
-  ctx.fillText("Play it here:", 67, 1437);
+  ctx.font = "700 22px Arial, sans-serif";
+  ctx.fillText("Play it here:", 67, 1424);
   ctx.font = "21px Arial, sans-serif";
-  ctx.fillText(APP_URL, 67, 1472);
-  if (drawQrCode(ctx, 829, 1305, 180)) {
+  ctx.fillText(APP_URL, 67, 1458);
+
+  if (drawQrCode(ctx, 831, 1283, 178)) {
     ctx.textAlign = "center";
+    ctx.fillStyle = "#5f5870";
     ctx.font = "700 17px Arial, sans-serif";
-    ctx.fillText("SCAN TO PLAY", 919, 1503);
+    ctx.fillText("SCAN TO PLAY", 920, 1482);
   }
-  // Subtle attribution on the card, without turning the game into an advert.
+
+  // Six tiny ranks, earned in colour and future ranks faded. Titles are not
+  // repeated under the icons; the current title sits above the strip.
+  RANKS.forEach((item, i) => {
+    const x = 66 + i * 116, y = 1510;
+    const earned = s.experiences >= item.threshold;
+    const active = item.threshold === rank.threshold;
+    roundedRect(ctx, x, y, 82, 80, 13, active ? "#fff0bc" :
+      earned ? "#ffffff" : "#ded9e7");
+    ctx.globalAlpha = earned ? 1 : .38;
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#302848";
+    ctx.font = "39px Arial, sans-serif";
+    ctx.fillText(item.icon, x + 41, y + 49);
+    ctx.globalAlpha = 1;
+    ctx.font = "700 17px Arial, sans-serif";
+    ctx.fillStyle = "#625b70";
+    ctx.fillText(String(item.threshold), x + 41, y + 102);
+  });
+
   ctx.textAlign = "center";
   ctx.fillStyle = "#635f75";
-  ctx.font = "700 20px Arial, sans-serif";
-  ctx.fillText("Adrian Croft - Host, Market Harborough Business Buzz", 540, 1553);
+  ctx.font = "700 19px Arial, sans-serif";
+  ctx.fillText("A little networking nonsense from Adrian Croft  |  aqcroft.com", 540, 1654);
   return canvas;
 }
 
@@ -423,13 +431,9 @@ async function shareImage() {
 }
 
 function resetBoard() {
-  celebratedLines.clear();
-  firstBingoCelebrated = false;
-  fullHouseCelebrated = false;
-  hideLineToast();
   selected.clear();
-  selected.add(CENTRE);
-  store();
+  celebratedTypes.clear();
+  persist();
   drawBoard();
   updateResults();
   announce("All clear. Ready for another round!");
