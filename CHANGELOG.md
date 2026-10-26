@@ -2,6 +2,18 @@
 
 All notable changes to Networking Bingo are recorded here. The **current version** is defined only in [version.js](./version.js).
 
+## 0.5.0 - 26th October 2026
+
+- Refreshed the classic card into 25 genuine networking experiences with no free centre square: eight positive, eight everyday/silly mishaps and nine cringeworthy moments.
+- Simplified the masthead to "Networking Bingo" with handshake and coffee icons and "The Good. The Bad. The Cringeworthy." as the one subtitle.
+- Removed American-style B-I-N-G-O column letters, redundant headings, and the expanded rules panel. Kept a square 5 x 5 layout for mobile.
+- Added six alliterative ranks at 0, 5, 10, 15, 20 and 25 squares; show only six icons with thresholds under the board, plus the current rank and score.
+- Added persistent highlighting and an initial gold glow on completed rows, columns and diagonals.
+- A player's first row, first column and first diagonal can each trigger one celebration, plus one final Full House celebration. Multiple kinds of achievement in one tap are combined in one pop-up. Later lines do not interrupt play.
+- Updated WhatsApp and native share copy, the exported 25-square PNG and its milestone icons, while keeping the scannable offline QR code.
+- Switched creator attribution to Adrian Croft and aqcroft.com, with no Business Buzz or Utility Warehouse branding.
+- Started a new local save key because the 25 scenarios changed; old edition ticks are deliberately not carried over to unrelated scenarios.
+
 ## 0.4.0 - 25th October 2026
 
 - Restored true square Bingo tiles on all screen sizes and shortened the longest labels without making them cryptic.
