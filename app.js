@@ -18,7 +18,7 @@ const SQUARES = [
   { emoji: "🤝", label: "Introduced two who did business", full: "Introduced two people who later did business with each other" },
   { emoji: "💡", label: "Found an unlikely collaborator", full: "Met someone you wouldn't expect to work with and found a collaboration" },
   { emoji: "💬", label: "One-to-one ran for 2+ hours", full: "Had a one-to-one that went on for more than two hours" },
-  { emoji: "😳", label: "Asked what I do, then tuned out", full: "Someone asked what you do then switched off before you answered" },
+  { emoji: "🔇", label: "Did my online pitch on mute", full: "Gave a networking introduction online without realising your microphone was muted" },
   { emoji: "🥐", label: "Went partly for the food", full: "Attended a networking event partly because of its food or refreshments" },
   { emoji: "🔄", label: "Gave a referral, got none back", full: "Gave a referral and secretly hoped for one back, but got nothing" },
   { emoji: "📅", label: "Said 'We must meet!'... didn't", full: "Promised a one-to-one but never actually arranged it" },
@@ -286,8 +286,12 @@ function makeImage() {
   ctx.fillRect(0, 0, 203);
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
-  ctx.font = "900 72px Arial, sans-serif";
-  ctx.fillText("NETWORKING BINGO", 44, 100);
+  ctx.font = "66px Arial, sans-serif";
+  ctx.fillText("🤝", 42, 101);
+  ctx.font = "900 68px Arial, sans-serif";
+  ctx.fillText("NETWORKING BINGO", 120, 100);
+  ctx.font = "61px Arial, sans-serif";
+  ctx.fillText("☕", 941, 100);
   ctx.fillStyle = "#ffd77d";
   ctx.font = "700 29px Arial, sans-serif";
   ctx.fillText("The Good. The Bad. The Cringeworthy.", 46, 156);
